@@ -12,6 +12,10 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.UIManager;
 import java.awt.Font;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.Color;
 
 public class Window extends JFrame {
 
@@ -22,6 +26,8 @@ public class Window extends JFrame {
 	private static final String ImageAdd = "images/add.png";
 	private static final String ImageRemove = "images/remove.png";
 	private static final String ImageCleanLog = "images/cleanLog.png";
+	private static final String ImageImport = "images/import.png";
+	private static final String ImageExport = "images/export.png";
 
 	private JPanel contentPane;
 	private JPanel panelGraph;
@@ -39,10 +45,33 @@ public class Window extends JFrame {
 	private JLabel lblNewLabel;
 	private JLabel lblActionsEvent;
 	private JButton btnCleanLog;
+	private JMenuBar menuBar;
+	private JMenu mnMenu;
+	private JMenuItem mntmImport;
+	private JMenuItem mntmExport;
 
 	public Window() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 843, 649);
+
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+
+		mnMenu = new JMenu("File");
+		mnMenu.setFont(new Font("Tahoma", Font.BOLD, 14));
+		menuBar.add(mnMenu);
+
+		mntmImport = new JMenuItem("Import");
+		mntmImport.setFont(new Font("Tahoma", Font.BOLD, 12));
+		mntmImport.setForeground(Color.BLUE);
+		mntmImport.setIcon(new ImageIcon(ImageImport));
+		mnMenu.add(mntmImport);
+
+		mntmExport = new JMenuItem("Export");
+		mntmExport.setForeground(Color.BLUE);
+		mntmExport.setFont(new Font("Tahoma", Font.BOLD, 12));
+		mntmExport.setIcon(new ImageIcon(ImageExport));
+		mnMenu.add(mntmExport);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

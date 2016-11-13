@@ -1,18 +1,15 @@
 package controllers;
 
-import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -58,6 +55,17 @@ public class WindowController extends WindowAbstractController {
 
 	}
 
+	public State indexOfState(String stateName) {
+
+		for (State state : layoutGraph.getGraph().getVertices()) {
+			if (state.toString().equals(stateName)) {
+				return state;
+			}
+
+		}
+		return null;
+	}
+
 	public void importFile() {
 		try {
 			JFileChooser fileChooser = new JFileChooser();
@@ -67,11 +75,34 @@ public class WindowController extends WindowAbstractController {
 				FileReader file = new FileReader(fileChooser.getSelectedFile());
 				BufferedReader bufferedReader = new BufferedReader(file);
 				String line = bufferedReader.readLine();
-				while (line != null) {
-					System.out.printf("%s\n", line);
 
-					line = bufferedReader.readLine();
+				String states[] = line.split(",");
+				for (String stateName : states) {
+					State state = new State(stateName);
+					layoutGraph.getGraph().addVertex(state);
+
 				}
+				line = bufferedReader.readLine();
+				String events[] = line.split("],");
+				for (String event : events) {
+
+				System.out.println("event ->"+ event);
+					String eventNane = event.substring(0, event.indexOf("["));
+
+					System.out.println(eventNane + "\n");
+
+					String state1 = event.substring(event.indexOf("[") + 1, event.indexOf(","));
+
+					System.out.println(state1 + "\n");
+
+					String state2 = event.substring(event.indexOf(",") + 2);
+
+					System.out.println(state2 + "\n");
+
+					layoutGraph.getGraph().addEdge(new Event(eventNane), indexOfState(state1), indexOfState(state2));
+
+				}
+				refreshGraph();
 				bufferedReader.close();
 				file.close();
 			}
@@ -84,15 +115,22 @@ public class WindowController extends WindowAbstractController {
 
 	public void exportFile() {
 		try {
+
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 			int result = fileChooser.showSaveDialog(window.getContentPane());
 			if (result == JFileChooser.APPROVE_OPTION) {
 				FileWriter file = new FileWriter(fileChooser.getSelectedFile() + ".txt");
 				BufferedWriter bufferedWriter = new BufferedWriter(file);
-				bufferedWriter.write("aew");
+				for (State state : layoutGraph.getGraph().getVertices()) {
+					bufferedWriter.write(state.toString() + ",");
+				}
+
 				bufferedWriter.newLine();
-				bufferedWriter.write("br");
+				for (Event event : layoutGraph.getGraph().getEdges()) {
+					bufferedWriter.write(event.toString() + " ");
+					bufferedWriter.write(layoutGraph.getGraph().getIncidentVertices(event) + ",");
+				}
 				bufferedWriter.close();
 				file.close();
 				JOptionPane.showMessageDialog(null, "File saved successfully!");

@@ -49,11 +49,10 @@ public class DialogRemoveEvent extends JDialog {
 		btnRemoveEvent.setIcon(new ImageIcon(ImageRemoveEvent));
 		getContentPane().add(btnRemoveEvent);
 
-		
 		comboBoxState1 = new JComboBox<State>();
 		comboBoxState1.setBounds(42, 198, 107, 30);
 		getContentPane().add(comboBoxState1);
-		
+
 		comboBoxState2 = new JComboBox<State>();
 		comboBoxState2.setBounds(283, 198, 107, 30);
 		getContentPane().add(comboBoxState2);
@@ -62,7 +61,7 @@ public class DialogRemoveEvent extends JDialog {
 		lblLink.setBounds(191, 198, 50, 30);
 		lblLink.setIcon(new ImageIcon(ImageLink));
 		getContentPane().add(lblLink);
-		
+
 		lblImage = new JLabel("");
 		lblImage.setBounds(176, 11, 81, 50);
 		lblImage.setIcon(new ImageIcon(ImageGraph));
@@ -70,7 +69,7 @@ public class DialogRemoveEvent extends JDialog {
 
 	}
 
-	public void actionListener(ActionListener actionListener,ItemListener itemListener) {
+	public void actionListener(ActionListener actionListener, ItemListener itemListener) {
 		btnRemoveEvent.setActionCommand("removeEvent");
 		btnRemoveEvent.addActionListener(actionListener);
 		comboBoxState1.addItemListener(itemListener);

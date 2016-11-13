@@ -45,24 +45,23 @@ public class DialogRemoveController extends WindowAbstractController implements 
 			dialogRemoveState.setVisible(true);
 		} else {
 			State state = (State) dialogRemoveState.getComboBoxStates().getSelectedItem();
-			layoutGraph.getGraph().removeVertex(state);
+			removeStateGraph(state);
 			dialogRemoveState.dispose();
-			refreshGraph();
-
+			refreshGraph("This state " + state.toString() + " has been deleted!");
 		}
-
 	}
 
 	public void removeEvent() {
 		if (!dialogRemoveEvent.isVisible()) {
-			findEvents();
+			refreshEvents();
 			dialogRemoveEvent.setVisible(true);
 
 		} else {
-			if (dialogRemoveEvent.getTextFieldNameEvent().getText().equals(null)) {
-				for (Event event : layoutGraph.getGraph().getEdges()) {
+			if (!dialogRemoveEvent.getTextFieldNameEvent().getText().equals("")) {
+				for (Event event : getAllEvents()) {
 					if (event.toString().equals(dialogRemoveEvent.getTextFieldNameEvent().getText())) {
-						layoutGraph.getGraph().removeEdge(event);
+						removeEventGraph(event);
+						refreshGraph("This event " + event.toString() + " has been deleted!");
 						break;
 					}
 				}
@@ -70,39 +69,39 @@ public class DialogRemoveController extends WindowAbstractController implements 
 
 				State state1 = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
 				State state2 = (State) dialogRemoveEvent.getComboBoxState2().getSelectedItem();
-				layoutGraph.getGraph().removeEdge(layoutGraph.getGraph().findEdge(state1, state2));
+				if (state2 != null) {
+					Event event = findEvent(state1, state2);
+					removeEventGraph(event);
+					refreshGraph("This event " + event.toString() + " with state " + state1.toString() + " and "
+							+ state2.toString() + " has been deleted!");
+				}
 			}
 			dialogRemoveEvent.dispose();
-			refreshGraph();
 		}
 	}
 
-	public void findEvents() {
+	public void refreshEvents() {
 		dialogRemoveEvent.getComboBoxState1().removeAllItems();
-		layoutGraph.getGraph().getVertices().forEach(state -> {
+		getAllStates().forEach(state -> {
 			dialogRemoveEvent.getComboBoxState1().addItem(state);
 		});
 	}
 
-	public void findStates() {
+	public void refreshStates() {
 		dialogRemoveEvent.getComboBoxState2().removeAllItems();
-		layoutGraph.getGraph().getOutEdges((State) dialogRemoveEvent.getComboBoxState1().getSelectedItem())
-				.forEach(event -> {
-					boolean stateEqual = false;
-					for (State state : layoutGraph.getGraph().getIncidentVertices(event)) {
-						if (!dialogRemoveEvent.getComboBoxState1().getSelectedItem().toString().equals(state.toString())
-								|| stateEqual) {
-							dialogRemoveEvent.getComboBoxState2().addItem(state);
-						} else {
-							stateEqual = true;
-						}
-					}
-				});
+		State stateRemove = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
+		getAllEventByState(stateRemove).forEach(event -> {
+			getAllStatesByEvent(event).forEach(state -> {
+				dialogRemoveEvent.getComboBoxState2().addItem(state);
+			});
+			dialogRemoveEvent.getComboBoxState2().removeItem(stateRemove);
+		});
+
 	}
 
 	public void refreshComboboxStates() {
 		dialogRemoveState.getComboBoxStates().removeAllItems();
-		layoutGraph.getGraph().getVertices().forEach(state -> {
+		getAllStates().forEach(state -> {
 			dialogRemoveState.getComboBoxStates().addItem(state);
 		});
 	}
@@ -110,7 +109,7 @@ public class DialogRemoveController extends WindowAbstractController implements 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
-			findStates();
+			refreshStates();
 		}
 
 	}

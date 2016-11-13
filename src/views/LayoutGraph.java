@@ -21,11 +21,11 @@ public class LayoutGraph {
 	private Graph<State, Event> graph;
 	private Layout<State, Event> layout;
 	private BasicVisualizationServer<State, Event> basicVisualizationServer;
-	private Transformer<State, Paint> vertexPaint;
+	private Transformer<State, Paint> statePaint;
 
 	public LayoutGraph() {
 		graph = new DirectedSparseMultigraph<State, Event>();
-
+		statePaint = state -> Color.GREEN;
 	}
 
 	public BasicVisualizationServer<State, Event> changeBasicVisualizationServer() {
@@ -33,12 +33,6 @@ public class LayoutGraph {
 		layout.setSize(new Dimension(300, 300));
 		basicVisualizationServer = new BasicVisualizationServer<State, Event>(layout);
 		basicVisualizationServer.setPreferredSize(new Dimension(350, 350));
-
-		vertexPaint = new Transformer<State, Paint>() {
-			public Paint transform(State i) {
-				return Color.GREEN;
-			}
-		};
 
 		/*
 		 * float dash[] = { 10.0f }; final Stroke edgeStroke = new
@@ -48,16 +42,11 @@ public class LayoutGraph {
 		 * { return edgeStroke; } };
 		 */
 
-		basicVisualizationServer.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
+		basicVisualizationServer.getRenderContext().setVertexFillPaintTransformer(statePaint);
 		// basicVisualizationServer.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
 		basicVisualizationServer.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<State>());
 		basicVisualizationServer.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Event>());
 		basicVisualizationServer.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
-
-		return basicVisualizationServer;
-	}
-
-	public BasicVisualizationServer<State, Event> getBasicVisualizationServer() {
 		return basicVisualizationServer;
 	}
 

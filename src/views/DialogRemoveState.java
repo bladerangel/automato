@@ -35,12 +35,12 @@ public class DialogRemoveState extends JDialog {
 		btnRemoveState.setBounds(148, 210, 137, 40);
 		btnRemoveState.setIcon(new ImageIcon(ImageRemoveState));
 		getContentPane().add(btnRemoveState);
-		
+
 		lblImage = new JLabel("");
 		lblImage.setBounds(176, 11, 81, 50);
 		lblImage.setIcon(new ImageIcon(ImageGraph));
 		getContentPane().add(lblImage);
-		
+
 		comboBoxStates = new JComboBox<State>();
 		comboBoxStates.setBounds(151, 141, 132, 30);
 		getContentPane().add(comboBoxStates);

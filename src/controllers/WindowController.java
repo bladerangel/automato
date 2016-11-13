@@ -55,17 +55,6 @@ public class WindowController extends WindowAbstractController {
 
 	}
 
-	public State indexOfState(String stateName) {
-
-		for (State state : layoutGraph.getGraph().getVertices()) {
-			if (state.toString().equals(stateName)) {
-				return state;
-			}
-
-		}
-		return null;
-	}
-
 	public void importFile() {
 		try {
 			JFileChooser fileChooser = new JFileChooser();
@@ -79,35 +68,23 @@ public class WindowController extends WindowAbstractController {
 				String states[] = line.split(",");
 				for (String stateName : states) {
 					State state = new State(stateName);
-					layoutGraph.getGraph().addVertex(state);
+					addStateGraph(state);
 
 				}
 				line = bufferedReader.readLine();
 				String events[] = line.split("],");
 				for (String event : events) {
-
-				System.out.println("event ->"+ event);
 					String eventNane = event.substring(0, event.indexOf("["));
-
-					System.out.println(eventNane + "\n");
-
 					String state1 = event.substring(event.indexOf("[") + 1, event.indexOf(","));
-
-					System.out.println(state1 + "\n");
-
 					String state2 = event.substring(event.indexOf(",") + 2);
-
-					System.out.println(state2 + "\n");
-
-					layoutGraph.getGraph().addEdge(new Event(eventNane), indexOfState(state1), indexOfState(state2));
+					addEventGraph(new Event(eventNane), findStateByName(state1), findStateByName(state2));
 
 				}
-				refreshGraph();
+				refreshGraph("The file was imported!");
 				bufferedReader.close();
 				file.close();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -122,21 +99,22 @@ public class WindowController extends WindowAbstractController {
 			if (result == JFileChooser.APPROVE_OPTION) {
 				FileWriter file = new FileWriter(fileChooser.getSelectedFile() + ".txt");
 				BufferedWriter bufferedWriter = new BufferedWriter(file);
-				for (State state : layoutGraph.getGraph().getVertices()) {
+				for (State state : getAllStates()) {
 					bufferedWriter.write(state.toString() + ",");
 				}
 
 				bufferedWriter.newLine();
-				for (Event event : layoutGraph.getGraph().getEdges()) {
+				for (Event event : getAllEvents()) {
 					bufferedWriter.write(event.toString() + " ");
-					bufferedWriter.write(layoutGraph.getGraph().getIncidentVertices(event) + ",");
+					bufferedWriter.write(getAllStatesByEvent(event) + ",");
 				}
 				bufferedWriter.close();
 				file.close();
+				messageLog(
+						"File saved successfully on path: " + fileChooser.getSelectedFile().getAbsolutePath() + ".txt");
 				JOptionPane.showMessageDialog(null, "File saved successfully!");
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -155,22 +133,20 @@ public class WindowController extends WindowAbstractController {
 		listStates.add(new State("I"));
 
 		listStates.forEach(state -> {
-			if (!containsState(state)) {
-				layoutGraph.getGraph().addVertex(state);
-			}
+			addStateGraph(state);
 
 		});
 
-		layoutGraph.getGraph().addEdge(new Event("A-B"), listStates.get(0), listStates.get(1));
-		layoutGraph.getGraph().addEdge(new Event("A-C"), listStates.get(0), listStates.get(2));
-		layoutGraph.getGraph().addEdge(new Event("A-D"), listStates.get(0), listStates.get(3));
-		layoutGraph.getGraph().addEdge(new Event("A-E"), listStates.get(0), listStates.get(4));
-		layoutGraph.getGraph().addEdge(new Event("B-F"), listStates.get(1), listStates.get(5));
-		layoutGraph.getGraph().addEdge(new Event("F-H"), listStates.get(6), listStates.get(7));
-		layoutGraph.getGraph().addEdge(new Event("D-G"), listStates.get(3), listStates.get(6));
-		layoutGraph.getGraph().addEdge(new Event("G-I"), listStates.get(6), listStates.get(8));
+		addEventGraph(new Event("A-B"), findStateByName("A"), findStateByName("B"));
+		addEventGraph(new Event("A-C"), findStateByName("A"), findStateByName("C"));
+		addEventGraph(new Event("A-D"), findStateByName("A"), findStateByName("D"));
+		addEventGraph(new Event("A-E"), findStateByName("A"), findStateByName("E"));
+		addEventGraph(new Event("B-F"), findStateByName("B"), findStateByName("F"));
+		addEventGraph(new Event("F-H"), findStateByName("F"), findStateByName("H"));
+		addEventGraph(new Event("D-G"), findStateByName("D"), findStateByName("G"));
+		addEventGraph(new Event("G-I"), findStateByName("G"), findStateByName("I"));
 
-		refreshGraph();
+		refreshGraph("Test case inserted!");
 
 	}
 

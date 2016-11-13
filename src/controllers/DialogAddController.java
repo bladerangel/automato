@@ -15,7 +15,7 @@ public class DialogAddController extends WindowAbstractController {
 
 	DialogAddState dialogAddState;
 	DialogAddEvent dialogAddEvent;
-	
+
 	public DialogAddController(Window window, LayoutGraph layoutGraph) {
 		super(window, layoutGraph);
 		dialogAddState = new DialogAddState();
@@ -44,10 +44,9 @@ public class DialogAddController extends WindowAbstractController {
 			dialogAddState.setVisible(true);
 		} else {
 			State state = new State(dialogAddState.getTextFieldNameState().getText());
-			if (!containsState(state)) {
-				layoutGraph.getGraph().addVertex(state);
+			if (addStateGraph(state)) {
 				dialogAddState.dispose();
-				refreshGraph();
+				refreshGraph("This state " + state.toString() + " has been insert!");
 			} else {
 				JOptionPane.showMessageDialog(null, "This state is already saved!");
 			}
@@ -65,16 +64,17 @@ public class DialogAddController extends WindowAbstractController {
 			State state1 = (State) dialogAddEvent.getComboBoxState1().getSelectedItem();
 			State state2 = (State) dialogAddEvent.getComboBoxState2().getSelectedItem();
 			Event event = new Event(dialogAddEvent.getTextFieldNameState().getText());
-			layoutGraph.getGraph().addEdge(event, state1, state2);
+			addEventGraph(event, state1, state2);
 			dialogAddEvent.dispose();
-			refreshGraph();
+			refreshGraph("This event " + event.toString() + " with state " + state1.toString() + " and "
+					+ state2.toString() + " has been insert!");
 		}
 	}
 
 	public void refreshComboboxStates() {
 		dialogAddEvent.getComboBoxState1().removeAllItems();
 		dialogAddEvent.getComboBoxState2().removeAllItems();
-		layoutGraph.getGraph().getVertices().forEach(state -> {
+		getAllStates().forEach(state -> {
 			dialogAddEvent.getComboBoxState1().addItem(state);
 			dialogAddEvent.getComboBoxState2().addItem(state);
 		});

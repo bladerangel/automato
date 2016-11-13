@@ -38,7 +38,7 @@ public class DialogAddState extends JDialog {
 		btnSaveState.setBounds(148, 210, 137, 40);
 		btnSaveState.setIcon(new ImageIcon(ImageSaveState));
 		getContentPane().add(btnSaveState);
-		
+
 		lblImage = new JLabel("");
 		lblImage.setBounds(176, 11, 81, 50);
 		lblImage.setIcon(new ImageIcon(ImageGraph));

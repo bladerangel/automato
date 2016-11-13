@@ -10,7 +10,7 @@ public class Main {
 
 		Window window = new Window();
 		LayoutGraph layoutGraph = new LayoutGraph();
-		WindowController windowController = new WindowController(window,layoutGraph);
+		WindowController windowController = new WindowController(window, layoutGraph);
 		windowController.init();
 	}
 

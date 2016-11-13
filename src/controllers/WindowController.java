@@ -1,10 +1,20 @@
 package controllers;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import models.Event;
 import models.State;
@@ -29,8 +39,13 @@ public class WindowController extends WindowAbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton button = (JButton) e.getSource();
-		switch (button.getActionCommand()) {
+		switch (e.getActionCommand()) {
+		case "import":
+			importFile();
+			break;
+		case "export":
+			exportFile();
+			break;
 		case "test":
 			test();
 			break;
@@ -41,6 +56,51 @@ public class WindowController extends WindowAbstractController {
 			break;
 		}
 
+	}
+
+	public void importFile() {
+		try {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showOpenDialog(window.getContentPane());
+			if (result == JFileChooser.APPROVE_OPTION) {
+				FileReader file = new FileReader(fileChooser.getSelectedFile());
+				BufferedReader bufferedReader = new BufferedReader(file);
+				String line = bufferedReader.readLine();
+				while (line != null) {
+					System.out.printf("%s\n", line);
+
+					line = bufferedReader.readLine();
+				}
+				bufferedReader.close();
+				file.close();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void exportFile() {
+		try {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showSaveDialog(window.getContentPane());
+			if (result == JFileChooser.APPROVE_OPTION) {
+				FileWriter file = new FileWriter(fileChooser.getSelectedFile() + ".txt");
+				BufferedWriter bufferedWriter = new BufferedWriter(file);
+				bufferedWriter.write("aew");
+				bufferedWriter.newLine();
+				bufferedWriter.write("br");
+				bufferedWriter.close();
+				file.close();
+				JOptionPane.showMessageDialog(null, "File saved successfully!");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void test() {
@@ -75,8 +135,8 @@ public class WindowController extends WindowAbstractController {
 		refreshGraph();
 
 	}
-	
-	public void cleanLog(){
+
+	public void cleanLog() {
 		window.getTextAreaLog().setText("");
 	}
 

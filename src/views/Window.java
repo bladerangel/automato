@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -149,6 +150,7 @@ public class Window extends JFrame {
 		btnCleanLog.setBounds(593, 443, 137, 40);
 		btnCleanLog.setIcon(new ImageIcon(ImageCleanLog));
 		contentPane.add(btnCleanLog);
+
 	}
 
 	public void actionListeners(ActionListener actionListener) {
@@ -160,6 +162,9 @@ public class Window extends JFrame {
 
 		btnTest.setActionCommand("test");
 
+		mntmImport.setActionCommand("import");
+		mntmExport.setActionCommand("export");
+
 		btnCleanLog.setActionCommand("cleanLog");
 		btnAddState.addActionListener(actionListener);
 		btnAddEvent.addActionListener(actionListener);
@@ -167,6 +172,8 @@ public class Window extends JFrame {
 		btnRemoveState.addActionListener(actionListener);
 		btnRemoveEvent.addActionListener(actionListener);
 		btnCleanLog.addActionListener(actionListener);
+		mntmImport.addActionListener(actionListener);
+		mntmExport.addActionListener(actionListener);
 	}
 
 	public JPanel getPanelGraph() {

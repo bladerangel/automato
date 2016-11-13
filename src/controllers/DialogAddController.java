@@ -26,8 +26,7 @@ public class DialogAddController extends WindowAbstractController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton button = (JButton) e.getSource();
-		switch (button.getActionCommand()) {
+		switch (e.getActionCommand()) {
 		case "addState":
 			addState();
 			break;

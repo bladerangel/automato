@@ -75,13 +75,7 @@ public class DialogRemoveController extends WindowAbstractController implements 
 			dialogRemoveEvent.getComboBoxState1().addItem(state);
 		});
 
-		if (dialogRemoveEvent.getComboBoxState1().getSelectedItem() != null) {
-			refreshStates2AndEventByState1();
-		} else {
-			dialogRemoveEvent.getComboBoxEvent().removeAllItems();
-			dialogRemoveEvent.getComboBoxState2().removeAllItems();
-		}
-
+		refreshStates2AndEventByState1();
 	}
 
 	public void selectEventsByState2() {
@@ -110,14 +104,16 @@ public class DialogRemoveController extends WindowAbstractController implements 
 		dialogRemoveEvent.getComboBoxEvent().removeAllItems();
 		dialogRemoveEvent.getComboBoxState2().removeAllItems();
 		State state1 = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
-		getAllEventByState(state1).forEach(event -> {
-			dialogRemoveEvent.getComboBoxEvent().addItem(event);
-			State state2 = findStateByStateAndEvent(state1, event);
-			if (!containsState2(state2)) {
-				dialogRemoveEvent.getComboBoxState2().addItem(state2);
-			}
-		});
-		selectEventsByState2();
+		if (state1 != null) {
+			getAllEventByState(state1).forEach(event -> {
+				dialogRemoveEvent.getComboBoxEvent().addItem(event);
+				State state2 = findStateByStateAndEvent(state1, event);
+				if (!containsState2(state2)) {
+					dialogRemoveEvent.getComboBoxState2().addItem(state2);
+				}
+			});
+			selectEventsByState2();
+		}
 	}
 
 	@Override

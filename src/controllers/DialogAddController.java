@@ -40,13 +40,14 @@ public class DialogAddController extends WindowAbstractController {
 	}
 
 	public void addState() {
-		if (!dialogAddState.isVisible()) {
+		if (!dialogAddState.isActive()) {
 			dialogAddState.setVisible(true);
 		} else {
 			String stateName = dialogAddState.getTextFieldNameState().getText();
 			if (!stateName.trim().equals("")) {
 				State state = new State(stateName);
 				if (addStateGraph(state)) {
+					dialogAddState.getTextFieldNameState().setText("");
 					dialogAddState.dispose();
 					refreshGraph("This state " + state.toString() + " has been insert!");
 				} else {
@@ -59,7 +60,7 @@ public class DialogAddController extends WindowAbstractController {
 	}
 
 	public void addEvent() {
-		if (!dialogAddEvent.isVisible()) {
+		if (!dialogAddEvent.isActive()) {
 			refreshComboboxStates();
 			dialogAddEvent.setVisible(true);
 
@@ -68,6 +69,7 @@ public class DialogAddController extends WindowAbstractController {
 			State state2 = (State) dialogAddEvent.getComboBoxState2().getSelectedItem();
 			Event event = new Event(dialogAddEvent.getTextFieldNameState().getText());
 			if (addEventGraph(event, state1, state2)) {
+				dialogAddEvent.getTextFieldNameState().setText("");
 				dialogAddEvent.dispose();
 				refreshGraph("This event " + event.toString() + " with state " + state1.toString() + " and "
 						+ state2.toString() + " has been insert!");

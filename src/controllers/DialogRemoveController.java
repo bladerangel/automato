@@ -3,8 +3,6 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Collection;
-import java.util.Iterator;
 
 import models.Event;
 import models.State;
@@ -42,7 +40,7 @@ public class DialogRemoveController extends WindowAbstractController implements 
 	}
 
 	public void removeState() {
-		if (!dialogRemoveState.isVisible()) {
+		if (!dialogRemoveState.isActive()) {
 			dialogRemoveState.getComboBoxStates().removeAllItems();
 			getAllStates().forEach(state -> {
 				dialogRemoveState.getComboBoxStates().addItem(state);
@@ -58,7 +56,7 @@ public class DialogRemoveController extends WindowAbstractController implements 
 	}
 
 	public void removeEvent() {
-		if (!dialogRemoveEvent.isVisible()) {
+		if (!dialogRemoveEvent.isActive()) {
 			refreshAll();
 			dialogRemoveEvent.setVisible(true);
 		} else {
@@ -94,11 +92,18 @@ public class DialogRemoveController extends WindowAbstractController implements 
 
 	public void selectState2ByEvent() {
 		Event event = (Event) dialogRemoveEvent.getComboBoxEvent().getSelectedItem();
-		Collection<State> states = getAllStatesByEvent(event);
-		Iterator<State> iterator = states.iterator();
-		iterator.next();
-		dialogRemoveEvent.getComboBoxState2().setSelectedItem(iterator.next());
+		State state = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
+		dialogRemoveEvent.getComboBoxState2().setSelectedItem(findStateByStateAndEvent(state, event));
 
+	}
+
+	public boolean containsState2(State state) {
+		for (int i = 0; i < dialogRemoveEvent.getComboBoxState2().getItemCount(); i++) {
+			if (dialogRemoveEvent.getComboBoxState2().getItemAt(i).equals(state)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void refreshStates2AndEventByState1() {
@@ -108,14 +113,11 @@ public class DialogRemoveController extends WindowAbstractController implements 
 		getAllEventByState(stateUltimo).forEach(event -> {
 			dialogRemoveEvent.getComboBoxEvent().addItem(event);
 			getAllStatesByEvent(event).forEach(state -> {
-				if (!stateUltimo.toString().equals(state.toString()))
+				if (!containsState2(state) && findEvent(stateUltimo, state) != null)
 					dialogRemoveEvent.getComboBoxState2().addItem(state);
 			});
 		});
-		if (findEvent(stateUltimo, stateUltimo) != null) {
-			dialogRemoveEvent.getComboBoxState2().addItem(stateUltimo);
-		}
-
+		selectEventsByState2();
 	}
 
 	@Override

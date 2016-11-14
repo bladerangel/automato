@@ -92,6 +92,10 @@ public abstract class WindowAbstractController implements ActionListener {
 		return layoutGraph.getGraph().findEdge(state1, state2);
 	}
 
+	public State findStateByStateAndEvent(State state, Event event) {
+		return layoutGraph.getGraph().getOpposite(state, event);
+	}
+
 	public State findStateByName(String stateName) {
 		for (State state : getAllStates()) {
 			if (state.toString().equals(stateName)) {

@@ -109,13 +109,13 @@ public class DialogRemoveController extends WindowAbstractController implements 
 	public void refreshStates2AndEventByState1() {
 		dialogRemoveEvent.getComboBoxEvent().removeAllItems();
 		dialogRemoveEvent.getComboBoxState2().removeAllItems();
-		State stateUltimo = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
-		getAllEventByState(stateUltimo).forEach(event -> {
+		State state1 = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
+		getAllEventByState(state1).forEach(event -> {
 			dialogRemoveEvent.getComboBoxEvent().addItem(event);
-			getAllStatesByEvent(event).forEach(state -> {
-				if (!containsState2(state) && findEvent(stateUltimo, state) != null)
-					dialogRemoveEvent.getComboBoxState2().addItem(state);
-			});
+			State state2 = findStateByStateAndEvent(state1, event);
+			if (!containsState2(state2)) {
+				dialogRemoveEvent.getComboBoxState2().addItem(state2);
+			}
 		});
 		selectEventsByState2();
 	}

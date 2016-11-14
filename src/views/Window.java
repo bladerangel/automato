@@ -42,8 +42,8 @@ public class Window extends JFrame {
 	private JButton btnTest;
 	private JButton btnRemoveState;
 	private JButton btnRemoveEvent;
-	private JLabel lblNewLabel;
-	private JLabel lblActionsEvent;
+	private JLabel lblStateActions;
+	private JLabel lblEventActions;
 	private JButton btnCleanLog;
 	private JMenuBar menuBar;
 	private JMenu mnMenu;
@@ -127,15 +127,15 @@ public class Window extends JFrame {
 		btnRemoveEvent.setIcon(new ImageIcon(ImageRemove));
 		panelButtons.add(btnRemoveEvent);
 
-		lblNewLabel = new JLabel("Actions State");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(37, 11, 107, 14);
-		panelButtons.add(lblNewLabel);
+		lblStateActions = new JLabel("State Actions");
+		lblStateActions.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblStateActions.setBounds(37, 11, 107, 14);
+		panelButtons.add(lblStateActions);
 
-		lblActionsEvent = new JLabel("Actions Event");
-		lblActionsEvent.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblActionsEvent.setBounds(347, 11, 107, 14);
-		panelButtons.add(lblActionsEvent);
+		lblEventActions = new JLabel("Event Actions");
+		lblEventActions.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEventActions.setBounds(347, 11, 107, 14);
+		panelButtons.add(lblEventActions);
 
 		scrollPaneLog = new JScrollPane();
 		scrollPaneLog.setBounds(533, 113, 267, 316);

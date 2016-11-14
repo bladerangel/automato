@@ -33,7 +33,7 @@ public class DialogAddEvent extends JDialog {
 		setBounds(100, 100, 450, 400);
 		getContentPane().setLayout(null);
 
-		lblEvent = new JLabel("Name Event:");
+		lblEvent = new JLabel("Event Name:");
 		lblEvent.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblEvent.setBounds(138, 108, 90, 14);
 		getContentPane().add(lblEvent);

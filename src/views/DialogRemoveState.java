@@ -26,7 +26,7 @@ public class DialogRemoveState extends JDialog {
 		setBounds(100, 100, 450, 313);
 		getContentPane().setLayout(null);
 
-		lblState = new JLabel("Name State:");
+		lblState = new JLabel("State Name:");
 		lblState.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblState.setBounds(153, 116, 90, 14);
 		getContentPane().add(lblState);

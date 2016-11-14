@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import models.State;
+import utils.ImagePath;
 
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -14,8 +15,8 @@ import javax.swing.JComboBox;
 public class DialogRemoveState extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ImageRemoveState = "images/removeState.png";
-	private static final String ImageGraph = "images/graph.png";
+	private static final ImageIcon ImageRemoveState = ImagePath.setImage("/removeState.png");
+	private static final ImageIcon ImageGraph = ImagePath.setImage("/graph.png");
 	private JLabel lblState;
 	private JButton btnRemoveState;
 	private JLabel lblImage;
@@ -33,12 +34,12 @@ public class DialogRemoveState extends JDialog {
 
 		btnRemoveState = new JButton("");
 		btnRemoveState.setBounds(148, 210, 137, 40);
-		btnRemoveState.setIcon(new ImageIcon(ImageRemoveState));
+		btnRemoveState.setIcon(ImageRemoveState);
 		getContentPane().add(btnRemoveState);
 
 		lblImage = new JLabel("");
 		lblImage.setBounds(176, 11, 81, 50);
-		lblImage.setIcon(new ImageIcon(ImageGraph));
+		lblImage.setIcon(ImageGraph);
 		getContentPane().add(lblImage);
 
 		comboBoxStates = new JComboBox<State>();

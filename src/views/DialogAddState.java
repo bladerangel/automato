@@ -7,13 +7,16 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import utils.ImagePath;
+
 import java.awt.Font;
 
 public class DialogAddState extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ImageSaveState = "images/saveState.png";
-	private static final String ImageGraph = "images/graph.png";
+	private static final ImageIcon ImageSaveState = ImagePath.setImage("/saveState.png");
+	private static final ImageIcon ImageGraph = ImagePath.setImage("/graph.png");
 	private JLabel lblState;
 	private JTextField textFieldNameState;
 	private JButton btnSaveState;
@@ -36,12 +39,12 @@ public class DialogAddState extends JDialog {
 
 		btnSaveState = new JButton("");
 		btnSaveState.setBounds(148, 210, 137, 40);
-		btnSaveState.setIcon(new ImageIcon(ImageSaveState));
+		btnSaveState.setIcon(ImageSaveState);
 		getContentPane().add(btnSaveState);
 
 		lblImage = new JLabel("");
 		lblImage.setBounds(176, 11, 81, 50);
-		lblImage.setIcon(new ImageIcon(ImageGraph));
+		lblImage.setIcon(ImageGraph);
 		getContentPane().add(lblImage);
 
 	}

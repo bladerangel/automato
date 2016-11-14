@@ -17,17 +17,19 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import utils.ImagePath;
+
 public class Window extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ImageTest = "images/test.png";
-	private static final String ImageGraphicDisplay = "images/graphicDisplay.png";
-	private static final String ImageLog = "images/log.png";
-	private static final String ImageAdd = "images/add.png";
-	private static final String ImageRemove = "images/remove.png";
-	private static final String ImageCleanLog = "images/cleanLog.png";
-	private static final String ImageImport = "images/import.png";
-	private static final String ImageExport = "images/export.png";
+	private static final ImageIcon ImageTest = ImagePath.setImage("/test.png");
+	private static final ImageIcon ImageGraphicDisplay = ImagePath.setImage("/graphicDisplay.png");
+	private static final ImageIcon ImageLog = ImagePath.setImage("/log.png");
+	private static final ImageIcon ImageAdd = ImagePath.setImage("/add.png");
+	private static final ImageIcon ImageRemove = ImagePath.setImage("/remove.png");
+	private static final ImageIcon ImageCleanLog = ImagePath.setImage("/cleanLog.png");
+	private static final ImageIcon ImageImport = ImagePath.setImage("/import.png");
+	private static final ImageIcon ImageExport = ImagePath.setImage("/export.png");
 
 	private JPanel contentPane;
 	private JPanel panelGraph;
@@ -64,13 +66,13 @@ public class Window extends JFrame {
 		mntmImport = new JMenuItem("Import");
 		mntmImport.setFont(new Font("Tahoma", Font.BOLD, 12));
 		mntmImport.setForeground(Color.BLUE);
-		mntmImport.setIcon(new ImageIcon(ImageImport));
+		mntmImport.setIcon(ImageImport);
 		mnMenu.add(mntmImport);
 
 		mntmExport = new JMenuItem("Export");
 		mntmExport.setForeground(Color.BLUE);
 		mntmExport.setFont(new Font("Tahoma", Font.BOLD, 12));
-		mntmExport.setIcon(new ImageIcon(ImageExport));
+		mntmExport.setIcon(ImageExport);
 		mnMenu.add(mntmExport);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -89,12 +91,12 @@ public class Window extends JFrame {
 
 		lblTitleGraph = new JLabel("");
 		lblTitleGraph.setBounds(57, 11, 311, 63);
-		lblTitleGraph.setIcon(new ImageIcon(ImageGraphicDisplay));
+		lblTitleGraph.setIcon(ImageGraphicDisplay);
 		panelTitle.add(lblTitleGraph);
 
 		lblTitleLog = new JLabel("");
 		lblTitleLog.setBounds(524, 11, 210, 63);
-		lblTitleLog.setIcon(new ImageIcon(ImageLog));
+		lblTitleLog.setIcon(ImageLog);
 		panelTitle.add(lblTitleLog);
 
 		panelButtons = new JPanel();
@@ -104,27 +106,27 @@ public class Window extends JFrame {
 
 		btnAddState = new JButton("");
 		btnAddState.setBounds(26, 36, 40, 40);
-		btnAddState.setIcon(new ImageIcon(ImageAdd));
+		btnAddState.setIcon(ImageAdd);
 		panelButtons.add(btnAddState);
 
 		btnAddEvent = new JButton("");
 		btnAddEvent.setBounds(337, 36, 40, 40);
-		btnAddEvent.setIcon(new ImageIcon(ImageAdd));
+		btnAddEvent.setIcon(ImageAdd);
 		panelButtons.add(btnAddEvent);
 
 		btnTest = new JButton("");
 		btnTest.setBounds(169, 36, 137, 40);
-		btnTest.setIcon(new ImageIcon(ImageTest));
+		btnTest.setIcon(ImageTest);
 		panelButtons.add(btnTest);
 
 		btnRemoveState = new JButton("");
 		btnRemoveState.setBounds(93, 36, 40, 40);
-		btnRemoveState.setIcon(new ImageIcon(ImageRemove));
+		btnRemoveState.setIcon(ImageRemove);
 		panelButtons.add(btnRemoveState);
 
 		btnRemoveEvent = new JButton("");
 		btnRemoveEvent.setBounds(403, 36, 40, 40);
-		btnRemoveEvent.setIcon(new ImageIcon(ImageRemove));
+		btnRemoveEvent.setIcon(ImageRemove);
 		panelButtons.add(btnRemoveEvent);
 
 		lblStateActions = new JLabel("State Actions");
@@ -147,7 +149,7 @@ public class Window extends JFrame {
 
 		btnCleanLog = new JButton("");
 		btnCleanLog.setBounds(593, 443, 137, 40);
-		btnCleanLog.setIcon(new ImageIcon(ImageCleanLog));
+		btnCleanLog.setIcon(ImageCleanLog);
 		contentPane.add(btnCleanLog);
 
 	}

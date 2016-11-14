@@ -12,13 +12,14 @@ import javax.swing.JLabel;
 
 import models.Event;
 import models.State;
+import utils.ImagePath;
 
 public class DialogRemoveEvent extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ImageRemoveEvent = "images/removeEvent.png";
-	private static final String ImageLink = "images/link.png";
-	private static final String ImageGraph = "images/graph.png";
+	private static final ImageIcon ImageRemoveEvent = ImagePath.setImage("/removeEvent.png");
+	private static final ImageIcon ImageLink = ImagePath.setImage("/link.png");
+	private static final ImageIcon ImageGraph = ImagePath.setImage("/graph.png");
 	private JLabel lblEvent;
 	private JButton btnRemoveEvent;
 	private JComboBox<State> comboBoxState2;
@@ -39,7 +40,7 @@ public class DialogRemoveEvent extends JDialog {
 
 		btnRemoveEvent = new JButton("");
 		btnRemoveEvent.setBounds(148, 283, 137, 40);
-		btnRemoveEvent.setIcon(new ImageIcon(ImageRemoveEvent));
+		btnRemoveEvent.setIcon(ImageRemoveEvent);
 		getContentPane().add(btnRemoveEvent);
 
 		comboBoxState1 = new JComboBox<State>();
@@ -52,12 +53,12 @@ public class DialogRemoveEvent extends JDialog {
 
 		lblLink = new JLabel("");
 		lblLink.setBounds(191, 198, 50, 30);
-		lblLink.setIcon(new ImageIcon(ImageLink));
+		lblLink.setIcon(ImageLink);
 		getContentPane().add(lblLink);
 
 		lblImage = new JLabel("");
 		lblImage.setBounds(176, 11, 81, 50);
-		lblImage.setIcon(new ImageIcon(ImageGraph));
+		lblImage.setIcon(ImageGraph);
 		getContentPane().add(lblImage);
 
 		comboBoxEvent = new JComboBox<Event>();

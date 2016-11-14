@@ -11,13 +11,14 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import models.State;
+import utils.ImagePath;
 
 public class DialogAddEvent extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ImageSaveEvent = "images/saveEvent.png";
-	private static final String ImageLink = "images/link.png";
-	private static final String ImageGraph = "images/graph.png";
+	private static final ImageIcon ImageSaveEvent = ImagePath.setImage("/saveEvent.png");
+	private static final ImageIcon ImageLink = ImagePath.setImage("/link.png");
+	private static final ImageIcon ImageGraph = ImagePath.setImage("/graph.png");
 	private JLabel lblEvent;
 	private JTextField textFieldNameEvent;
 	private JButton btnSaveEvent;
@@ -43,7 +44,7 @@ public class DialogAddEvent extends JDialog {
 
 		btnSaveEvent = new JButton("");
 		btnSaveEvent.setBounds(148, 283, 137, 40);
-		btnSaveEvent.setIcon(new ImageIcon(ImageSaveEvent));
+		btnSaveEvent.setIcon(ImageSaveEvent);
 		getContentPane().add(btnSaveEvent);
 
 		comboBoxState1 = new JComboBox<State>();
@@ -56,12 +57,12 @@ public class DialogAddEvent extends JDialog {
 
 		lblLink = new JLabel("");
 		lblLink.setBounds(191, 198, 50, 30);
-		lblLink.setIcon(new ImageIcon(ImageLink));
+		lblLink.setIcon(ImageLink);
 		getContentPane().add(lblLink);
 
 		lblImage = new JLabel("");
 		lblImage.setBounds(176, 11, 81, 50);
-		lblImage.setIcon(new ImageIcon(ImageGraph));
+		lblImage.setIcon(ImageGraph);
 		getContentPane().add(lblImage);
 
 	}

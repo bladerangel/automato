@@ -3,7 +3,6 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import models.Event;
 import models.State;
+import utils.FileActions;
 import views.LayoutGraph;
 import views.Window;
 
@@ -57,8 +57,7 @@ public class WindowController extends WindowAbstractController {
 
 	public void importFile() {
 		try {
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			JFileChooser fileChooser = FileActions.initPath();
 			int result = fileChooser.showOpenDialog(window.getContentPane());
 			if (result == JFileChooser.APPROVE_OPTION) {
 				FileReader file = new FileReader(fileChooser.getSelectedFile());
@@ -85,16 +84,14 @@ public class WindowController extends WindowAbstractController {
 				file.close();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "File not found!");
 		}
 
 	}
 
 	public void exportFile() {
 		try {
-
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			JFileChooser fileChooser = FileActions.initPath();
 			int result = fileChooser.showSaveDialog(window.getContentPane());
 			if (result == JFileChooser.APPROVE_OPTION) {
 				FileWriter file = new FileWriter(fileChooser.getSelectedFile() + ".txt");

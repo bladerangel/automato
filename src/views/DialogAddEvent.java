@@ -1,17 +1,16 @@
 package views;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import models.State;
-import javax.swing.JComboBox;
-import java.awt.Font;
 
 public class DialogAddEvent extends JDialog {
 
@@ -26,7 +25,6 @@ public class DialogAddEvent extends JDialog {
 	private JComboBox<State> comboBoxState1;
 	private JLabel lblLink;
 	private JLabel lblImage;
-	ComboBoxModel<State> comboBoxModel;
 
 	public DialogAddEvent() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

@@ -43,12 +43,15 @@ public class DialogAddController extends WindowAbstractController {
 		if (!dialogAddState.isVisible()) {
 			dialogAddState.setVisible(true);
 		} else {
-			State state = new State(dialogAddState.getTextFieldNameState().getText());
-			if (addStateGraph(state)) {
-				dialogAddState.dispose();
-				refreshGraph("This state " + state.toString() + " has been insert!");
-			} else {
-				JOptionPane.showMessageDialog(null, "This state is already saved!");
+			String stateName = dialogAddState.getTextFieldNameState().getText();
+			if (!stateName.trim().equals("")) {
+				State state = new State(stateName);
+				if (addStateGraph(state)) {
+					dialogAddState.dispose();
+					refreshGraph("This state " + state.toString() + " has been insert!");
+				} else {
+					JOptionPane.showMessageDialog(null, "This state is already saved!");
+				}
 			}
 
 		}
@@ -64,10 +67,12 @@ public class DialogAddController extends WindowAbstractController {
 			State state1 = (State) dialogAddEvent.getComboBoxState1().getSelectedItem();
 			State state2 = (State) dialogAddEvent.getComboBoxState2().getSelectedItem();
 			Event event = new Event(dialogAddEvent.getTextFieldNameState().getText());
-			addEventGraph(event, state1, state2);
-			dialogAddEvent.dispose();
-			refreshGraph("This event " + event.toString() + " with state " + state1.toString() + " and "
-					+ state2.toString() + " has been insert!");
+			if (addEventGraph(event, state1, state2)) {
+				dialogAddEvent.dispose();
+				refreshGraph("This event " + event.toString() + " with state " + state1.toString() + " and "
+						+ state2.toString() + " has been insert!");
+			}
+
 		}
 	}
 

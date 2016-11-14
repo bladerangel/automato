@@ -48,16 +48,28 @@ public abstract class WindowAbstractController implements ActionListener {
 		return false;
 	}
 
-	public void removeStateGraph(State state) {
-		layoutGraph.getGraph().removeVertex(state);
+	public boolean removeStateGraph(State state) {
+		if (state != null) {
+			layoutGraph.getGraph().removeVertex(state);
+			return true;
+		}
+		return false;
 	}
 
-	public void removeEventGraph(Event event) {
-		layoutGraph.getGraph().removeEdge(event);
+	public boolean removeEventGraph(Event event) {
+		if (event != null) {
+			layoutGraph.getGraph().removeEdge(event);
+			return true;
+		}
+		return false;
 	}
 
-	public void addEventGraph(Event event, State state1, State state2) {
-		layoutGraph.getGraph().addEdge(event, state1, state2);
+	public boolean addEventGraph(Event event, State state1, State state2) {
+		if (state1 != null && state2 != null) {
+			layoutGraph.getGraph().addEdge(event, state1, state2);
+			return true;
+		}
+		return false;
 	}
 
 	public Collection<State> getAllStates() {

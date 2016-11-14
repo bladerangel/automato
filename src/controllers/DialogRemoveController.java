@@ -3,6 +3,8 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Collection;
+import java.util.Iterator;
 
 import models.Event;
 import models.State;
@@ -41,77 +43,95 @@ public class DialogRemoveController extends WindowAbstractController implements 
 
 	public void removeState() {
 		if (!dialogRemoveState.isVisible()) {
-			refreshComboboxStates();
+			dialogRemoveState.getComboBoxStates().removeAllItems();
+			getAllStates().forEach(state -> {
+				dialogRemoveState.getComboBoxStates().addItem(state);
+			});
 			dialogRemoveState.setVisible(true);
 		} else {
 			State state = (State) dialogRemoveState.getComboBoxStates().getSelectedItem();
-			removeStateGraph(state);
-			dialogRemoveState.dispose();
-			refreshGraph("This state " + state.toString() + " has been deleted!");
+			if (removeStateGraph(state)) {
+				dialogRemoveState.dispose();
+				refreshGraph("This state " + state.toString() + " has been deleted!");
+			}
 		}
 	}
 
 	public void removeEvent() {
 		if (!dialogRemoveEvent.isVisible()) {
-			refreshEvents();
+			refreshAll();
 			dialogRemoveEvent.setVisible(true);
-
 		} else {
-			if (!dialogRemoveEvent.getTextFieldNameEvent().getText().equals("")) {
-				for (Event event : getAllEvents()) {
-					if (event.toString().equals(dialogRemoveEvent.getTextFieldNameEvent().getText())) {
-						removeEventGraph(event);
-						refreshGraph("This event " + event.toString() + " has been deleted!");
-						break;
-					}
-				}
-			} else {
-
-				State state1 = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
-				State state2 = (State) dialogRemoveEvent.getComboBoxState2().getSelectedItem();
-				if (state2 != null) {
-					Event event = findEvent(state1, state2);
-					removeEventGraph(event);
-					refreshGraph("This event " + event.toString() + " with state " + state1.toString() + " and "
-							+ state2.toString() + " has been deleted!");
-				}
+			Event event = (Event) dialogRemoveEvent.getComboBoxEvent().getSelectedItem();
+			if (removeEventGraph(event)) {
+				refreshGraph("This event " + event.toString() + " has been deleted!");
+				dialogRemoveEvent.dispose();
 			}
-			dialogRemoveEvent.dispose();
+
 		}
 	}
 
-	public void refreshEvents() {
+	public void refreshAll() {
 		dialogRemoveEvent.getComboBoxState1().removeAllItems();
 		getAllStates().forEach(state -> {
 			dialogRemoveEvent.getComboBoxState1().addItem(state);
 		});
+
+		if (dialogRemoveEvent.getComboBoxState1().getSelectedItem() != null) {
+			refreshStates2AndEventByState1();
+		} else {
+			dialogRemoveEvent.getComboBoxEvent().removeAllItems();
+			dialogRemoveEvent.getComboBoxState2().removeAllItems();
+		}
+
 	}
 
-	public void refreshStates() {
+	public void selectEventsByState2() {
+		State state1 = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
+		State state2 = (State) dialogRemoveEvent.getComboBoxState2().getSelectedItem();
+		dialogRemoveEvent.getComboBoxEvent().setSelectedItem(findEvent(state1, state2));
+	}
+
+	public void selectState2ByEvent() {
+		Event event = (Event) dialogRemoveEvent.getComboBoxEvent().getSelectedItem();
+		Collection<State> states = getAllStatesByEvent(event);
+		Iterator<State> iterator = states.iterator();
+		iterator.next();
+		dialogRemoveEvent.getComboBoxState2().setSelectedItem(iterator.next());
+
+	}
+
+	public void refreshStates2AndEventByState1() {
+		dialogRemoveEvent.getComboBoxEvent().removeAllItems();
 		dialogRemoveEvent.getComboBoxState2().removeAllItems();
-		State stateRemove = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
-		getAllEventByState(stateRemove).forEach(event -> {
+		State stateUltimo = (State) dialogRemoveEvent.getComboBoxState1().getSelectedItem();
+		getAllEventByState(stateUltimo).forEach(event -> {
+			dialogRemoveEvent.getComboBoxEvent().addItem(event);
 			getAllStatesByEvent(event).forEach(state -> {
-				dialogRemoveEvent.getComboBoxState2().addItem(state);
+				if (!stateUltimo.toString().equals(state.toString()))
+					dialogRemoveEvent.getComboBoxState2().addItem(state);
 			});
-			dialogRemoveEvent.getComboBoxState2().removeItem(stateRemove);
 		});
+		if (findEvent(stateUltimo, stateUltimo) != null) {
+			dialogRemoveEvent.getComboBoxState2().addItem(stateUltimo);
+		}
 
-	}
-
-	public void refreshComboboxStates() {
-		dialogRemoveState.getComboBoxStates().removeAllItems();
-		getAllStates().forEach(state -> {
-			dialogRemoveState.getComboBoxStates().addItem(state);
-		});
 	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
-			refreshStates();
+			if (e.getItem() instanceof State) {
+				if (e.getSource().equals(dialogRemoveEvent.getComboBoxState1())) {
+					refreshStates2AndEventByState1();
+				} else {
+					selectEventsByState2();
+				}
+
+			} else {
+				selectState2ByEvent();
+			}
+
 		}
-
 	}
-
 }

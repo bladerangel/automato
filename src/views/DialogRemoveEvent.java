@@ -1,18 +1,17 @@
 package views;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
+import models.Event;
 import models.State;
-import javax.swing.JComboBox;
-import java.awt.Font;
 
 public class DialogRemoveEvent extends JDialog {
 
@@ -21,13 +20,12 @@ public class DialogRemoveEvent extends JDialog {
 	private static final String ImageLink = "images/link.png";
 	private static final String ImageGraph = "images/graph.png";
 	private JLabel lblEvent;
-	private JTextField textFieldNameEvent;
 	private JButton btnRemoveEvent;
 	private JComboBox<State> comboBoxState2;
 	private JComboBox<State> comboBoxState1;
 	private JLabel lblLink;
 	private JLabel lblImage;
-	ComboBoxModel<State> comboBoxModel;
+	private JComboBox<Event> comboBoxEvent;
 
 	public DialogRemoveEvent() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -36,13 +34,8 @@ public class DialogRemoveEvent extends JDialog {
 
 		lblEvent = new JLabel("Event Name:");
 		lblEvent.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEvent.setBounds(138, 108, 90, 14);
+		lblEvent.setBounds(163, 108, 90, 14);
 		getContentPane().add(lblEvent);
-
-		textFieldNameEvent = new JTextField();
-		textFieldNameEvent.setBounds(138, 133, 158, 25);
-		getContentPane().add(textFieldNameEvent);
-		textFieldNameEvent.setColumns(10);
 
 		btnRemoveEvent = new JButton("");
 		btnRemoveEvent.setBounds(148, 283, 137, 40);
@@ -67,16 +60,22 @@ public class DialogRemoveEvent extends JDialog {
 		lblImage.setIcon(new ImageIcon(ImageGraph));
 		getContentPane().add(lblImage);
 
+		comboBoxEvent = new JComboBox<Event>();
+		comboBoxEvent.setBounds(163, 133, 107, 30);
+		getContentPane().add(comboBoxEvent);
+
 	}
 
 	public void actionListener(ActionListener actionListener, ItemListener itemListener) {
 		btnRemoveEvent.setActionCommand("removeEvent");
 		btnRemoveEvent.addActionListener(actionListener);
 		comboBoxState1.addItemListener(itemListener);
+		comboBoxState2.addItemListener(itemListener);
+		comboBoxEvent.addItemListener(itemListener);
 	}
 
-	public JTextField getTextFieldNameEvent() {
-		return textFieldNameEvent;
+	public JComboBox<Event> getComboBoxEvent() {
+		return comboBoxEvent;
 	}
 
 	public JComboBox<State> getComboBoxState1() {

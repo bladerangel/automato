@@ -30,6 +30,7 @@ public class Window extends JFrame {
 	private static final ImageIcon ImageCleanLog = ImagePath.setImage("/cleanLog.png");
 	private static final ImageIcon ImageImport = ImagePath.setImage("/import.png");
 	private static final ImageIcon ImageExport = ImagePath.setImage("/export.png");
+	private static final ImageIcon ImageNew = ImagePath.setImage("/new.png");
 
 	private JPanel contentPane;
 	private JPanel panelGraph;
@@ -51,6 +52,7 @@ public class Window extends JFrame {
 	private JMenu mnMenu;
 	private JMenuItem mntmImport;
 	private JMenuItem mntmExport;
+	private JMenuItem mntmNew;
 
 	public Window() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,6 +64,12 @@ public class Window extends JFrame {
 		mnMenu = new JMenu("File");
 		mnMenu.setFont(new Font("Tahoma", Font.BOLD, 14));
 		menuBar.add(mnMenu);
+
+		mntmNew = new JMenuItem("New");
+		mntmNew.setForeground(Color.BLUE);
+		mntmNew.setFont(new Font("Tahoma", Font.BOLD, 12));
+		mntmNew.setIcon(ImageNew);
+		mnMenu.add(mntmNew);
 
 		mntmImport = new JMenuItem("Import");
 		mntmImport.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -157,14 +165,12 @@ public class Window extends JFrame {
 	public void actionListeners(ActionListener actionListener) {
 		btnAddState.setActionCommand("addState");
 		btnRemoveState.setActionCommand("removeState");
-
 		btnAddEvent.setActionCommand("addEvent");
 		btnRemoveEvent.setActionCommand("removeEvent");
-
 		btnTest.setActionCommand("test");
-
 		mntmImport.setActionCommand("import");
 		mntmExport.setActionCommand("export");
+		mntmNew.setActionCommand("new");
 
 		btnCleanLog.setActionCommand("cleanLog");
 		btnAddState.addActionListener(actionListener);
@@ -175,6 +181,7 @@ public class Window extends JFrame {
 		btnCleanLog.addActionListener(actionListener);
 		mntmImport.addActionListener(actionListener);
 		mntmExport.addActionListener(actionListener);
+		mntmNew.addActionListener(actionListener);
 	}
 
 	public JPanel getPanelGraph() {

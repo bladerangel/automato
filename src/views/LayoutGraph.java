@@ -24,7 +24,7 @@ public class LayoutGraph {
 	private Transformer<State, Paint> statePaint;
 
 	public LayoutGraph() {
-		graph = new DirectedSparseMultigraph<State, Event>();
+		newGraph();
 		statePaint = state -> Color.GREEN;
 	}
 
@@ -52,6 +52,10 @@ public class LayoutGraph {
 
 	public Graph<State, Event> getGraph() {
 		return graph;
+	}
+
+	public void newGraph() {
+		graph = new DirectedSparseMultigraph<State, Event>();
 	}
 
 }

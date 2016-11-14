@@ -37,6 +37,9 @@ public class WindowController extends WindowAbstractController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
+		case "new":
+			newProject();
+			break;
 		case "import":
 			importFile();
 			break;
@@ -55,11 +58,17 @@ public class WindowController extends WindowAbstractController {
 
 	}
 
+	public void newProject() {
+		removeAllGraph();
+		refreshGraph("New graph!");
+	}
+
 	public void importFile() {
 		try {
 			JFileChooser fileChooser = FileActions.initPath();
 			int result = fileChooser.showOpenDialog(window.getContentPane());
 			if (result == JFileChooser.APPROVE_OPTION) {
+				removeAllGraph();
 				FileReader file = new FileReader(fileChooser.getSelectedFile());
 				BufferedReader bufferedReader = new BufferedReader(file);
 				String line = bufferedReader.readLine();
@@ -83,7 +92,7 @@ public class WindowController extends WindowAbstractController {
 				bufferedReader.close();
 				file.close();
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "File not found!");
 		}
 
@@ -117,6 +126,7 @@ public class WindowController extends WindowAbstractController {
 	}
 
 	public void test() {
+		removeAllGraph();
 
 		List<State> listStates = new ArrayList<State>();
 		listStates.add(new State("A"));

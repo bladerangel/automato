@@ -64,6 +64,10 @@ public abstract class WindowAbstractController implements ActionListener {
 		return false;
 	}
 
+	public void removeAllGraph() {
+		layoutGraph.newGraph();
+	}
+
 	public boolean addEventGraph(Event event, State state1, State state2) {
 		if (state1 != null && state2 != null) {
 			layoutGraph.getGraph().addEdge(event, state1, state2);

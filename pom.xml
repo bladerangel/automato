@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>grafo</groupId>
+	<artifactId>grafo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<net.sf.jung.version>2.0.1</net.sf.jung.version>
+		<net.sourceforge.collections.version>4.01</net.sourceforge.collections.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.sf.jung</groupId>
+			<artifactId>jung-visualization</artifactId>
+			<version>${net.sf.jung.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jung</groupId>
+			<artifactId>jung-graph-impl</artifactId>
+			<version>${net.sf.jung.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.collections</groupId>
+			<artifactId>collections-generic</artifactId>
+			<version>${net.sourceforge.collections.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

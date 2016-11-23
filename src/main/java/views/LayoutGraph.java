@@ -16,6 +16,7 @@ import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import models.Event;
 import models.State;
 
+<<<<<<< HEAD
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -40,12 +41,35 @@ public class LayoutGraph {
         basicVisualizationServer.setBackground(Color.decode("#90A4AE"));
 		/*
          * float dash[] = { 10.0f }; final Stroke edgeStroke = new
+=======
+public class LayoutGraph {
+
+	private Graph<State, Event> graph;
+	private Layout<State, Event> layout;
+	private BasicVisualizationServer<State, Event> basicVisualizationServer;
+	private Transformer<State, Paint> statePaint;
+
+	public LayoutGraph() {
+		newGraph();
+		statePaint = state -> Color.GREEN;
+	}
+
+	public BasicVisualizationServer<State, Event> changeBasicVisualizationServer() {
+		layout = new CircleLayout<State, Event>(graph);
+		layout.setSize(new Dimension(300, 300));
+		basicVisualizationServer = new BasicVisualizationServer<State, Event>(layout);
+		basicVisualizationServer.setPreferredSize(new Dimension(350, 350));
+
+		/*
+		 * float dash[] = { 10.0f }; final Stroke edgeStroke = new
+>>>>>>> de537b54d13afe55e685c5e67d1807793853d1ba
 		 * BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
 		 * 10.0f, dash, 0.0f); Transformer<Event, Stroke> edgeStrokeTransformer
 		 * = new Transformer<Event, Stroke>() { public Stroke transform(Event s)
 		 * { return edgeStroke; } };
 		 */
 
+<<<<<<< HEAD
         basicVisualizationServer.getRenderContext().setVertexFillPaintTransformer(statePaint);
         // basicVisualizationServer.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
         basicVisualizationServer.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<State>());
@@ -57,5 +81,22 @@ public class LayoutGraph {
     public Graph<State, Event> getGraph() {
         return graph;
     }
+=======
+		basicVisualizationServer.getRenderContext().setVertexFillPaintTransformer(statePaint);
+		// basicVisualizationServer.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
+		basicVisualizationServer.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<State>());
+		basicVisualizationServer.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<Event>());
+		basicVisualizationServer.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
+		return basicVisualizationServer;
+	}
+
+	public Graph<State, Event> getGraph() {
+		return graph;
+	}
+
+	public void newGraph() {
+		graph = new DirectedSparseMultigraph<State, Event>();
+	}
+>>>>>>> de537b54d13afe55e685c5e67d1807793853d1ba
 
 }

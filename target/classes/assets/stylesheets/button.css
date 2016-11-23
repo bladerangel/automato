@@ -1,0 +1,12 @@
+.button {
+    -fx-background-color:  #2196f3;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-button-type: RAISED;
+    -fx-pref-width: 130px;
+    -fx-pref-height: 60px;
+}
+
+.button:hover{
+    -fx-background-color:  #4CAF50;
+}

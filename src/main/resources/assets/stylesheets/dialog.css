@@ -1,0 +1,9 @@
+#paneTitle{
+    -fx-background-color:  #009688;
+}
+
+#title{
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}

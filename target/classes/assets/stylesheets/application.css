@@ -18,8 +18,6 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 10px;
-    -fx-border-radius: 5px;
-    -fx-border-color: #212121;
 }
 .menu:hover, .menu-item:hover{
     -fx-background-color:  #2196f3;
@@ -27,7 +25,7 @@
 
 
 #automatos{
-    -fx-font-size: 20px;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-border-radius: 5px;
     -fx-border-color: #212121;

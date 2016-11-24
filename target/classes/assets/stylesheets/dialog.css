@@ -1,8 +1,10 @@
-#paneTitle{
-    -fx-background-color:  #009688;
+#paneTitle {
+    -fx-background-color: #009688;
+    -fx-background-insets: 0 10 0 10;
+    -fx-padding: 0 0 10 0;
 }
 
-#title{
+#title {
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
     -fx-font-size: 14px;

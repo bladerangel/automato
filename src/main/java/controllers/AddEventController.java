@@ -3,9 +3,9 @@ package controllers;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Event;
@@ -37,6 +37,7 @@ public class AddEventController extends AbstractController implements Initializa
     public void initialize(URL location, ResourceBundle resources) {
 
         requiredFieldValidator = new RequiredFieldValidator();
+        requiredFieldValidator.setIcon(new ImageView("assets/images/alert.png"));
         requiredFieldValidator.setMessage("Empty");
         name.getValidators().add(requiredFieldValidator);
     }

@@ -24,7 +24,7 @@
                   <Insets bottom="10.0" />
                </padding>
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets />
                </VBox.margin>
             </Pane>
             <JFXComboBox fx:id="events" onAction="#changeEvent" promptText="Select Event" />

@@ -144,9 +144,10 @@
    <bottom>
       <VBox fx:id="automatos" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Label text="X=" fx:id="x" />
-            <Label fx:id="e" text="E=" />
+            <Label text="X=[]" fx:id="x" />
+            <Label fx:id="e" text="E=[]" />
             <Label />
+            <Label fx:id="e1" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="20.0" right="20.0" />

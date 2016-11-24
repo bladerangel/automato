@@ -14,7 +14,6 @@
         <com.jfoenix.version>1.0.0</com.jfoenix.version>
         <net.sf.jung.version>2.0.1</net.sf.jung.version>
         <net.sourceforge.collections.version>4.01</net.sourceforge.collections.version>
-        <de.jensd.version>8.9</de.jensd.version>
     </properties>
     <build>
         <plugins>
@@ -35,12 +34,6 @@
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>${com.jfoenix.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx</artifactId>
-            <version>${de.jensd.version}</version>
         </dependency>
 
         <dependency>

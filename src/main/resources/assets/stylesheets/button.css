@@ -5,6 +5,7 @@
     -fx-button-type: RAISED;
     -fx-pref-width: 130px;
     -fx-pref-height: 60px;
+    -fx-cursor: hand;
 }
 
 .button:hover{

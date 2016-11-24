@@ -52,12 +52,12 @@ public class ApplicationController implements Initializable {
         //});
     }
 
-    public void setX(){
-        x.setText("X="+ getAllStates() +"");
+    public void setX() {
+        x.setText("X=" + getAllStates() + "");
     }
 
-    public void setE(){
-        e.setText("E="+ getAllEvents() +"");
+    public void setE() {
+        e.setText("E=" + getAllEvents() + "");
     }
 
     @FXML
@@ -219,22 +219,10 @@ public class ApplicationController implements Initializable {
         if (state != null) {
             layoutGraph.getGraph().removeVertex(state);
             createAndSetSwingContent();
+            setX();
             return true;
         }
         return false;
-    }
-
-    public boolean removeEventGraph(Event event) {
-        if (event != null) {
-            layoutGraph.getGraph().removeEdge(event);
-            createAndSetSwingContent();
-            return true;
-        }
-        return false;
-    }
-
-    public void removeAllGraph() {
-        layoutGraph = new LayoutGraph();
     }
 
     public boolean addEventGraph(Event event, State state1, State state2) {
@@ -246,6 +234,21 @@ public class ApplicationController implements Initializable {
         }
         return false;
     }
+
+    public boolean removeEventGraph(Event event) {
+        if (event != null) {
+            layoutGraph.getGraph().removeEdge(event);
+            createAndSetSwingContent();
+            setE();
+            return true;
+        }
+        return false;
+    }
+
+    public void removeAllGraph() {
+        layoutGraph = new LayoutGraph();
+    }
+
 
     public Collection<State> getAllStates() {
         return layoutGraph.getGraph().getVertices();

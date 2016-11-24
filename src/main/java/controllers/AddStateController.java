@@ -2,14 +2,8 @@ package controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import com.jfoenix.validation.ValidationFacade;
 import com.jfoenix.validation.base.ValidatorBase;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import de.jensd.fx.glyphs.materialicons.MaterialIconView;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -32,9 +26,9 @@ public class AddStateController extends AbstractController implements Initializa
     @FXML
     private JFXTextField name;
 
-    ValidatorState validator;
+    private ValidatorState validator;
 
-    RequiredFieldValidator requiredFieldValidator;
+    private RequiredFieldValidator requiredFieldValidator;
 
     @FXML
     public void save() throws IOException {
@@ -49,8 +43,9 @@ public class AddStateController extends AbstractController implements Initializa
     public void initialize(URL location, ResourceBundle resources) {
         validator = new ValidatorState();
         requiredFieldValidator = new RequiredFieldValidator();
-        validator.setIcon(new FontAwesomeIconView(FontAwesomeIcon.WARNING));
-        requiredFieldValidator.setMessage("Empty");
+        validator.setIcon(new ImageView("assets/images/alert.png"));
+        requiredFieldValidator.setIcon(new ImageView("assets/images/alert.png"));
+        requiredFieldValidator.setMessage("Empty!");
         validator.setMessage("Choose another name!");
         name.getValidators().add(validator);
         name.getValidators().add(requiredFieldValidator);

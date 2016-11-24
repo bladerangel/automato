@@ -1,17 +1,12 @@
 package controllers;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.RequiredFieldValidator;
-import com.jfoenix.validation.base.ValidatorBase;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.State;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

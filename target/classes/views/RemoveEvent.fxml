@@ -31,6 +31,11 @@
             <HBox alignment="CENTER" spacing="30.0">
                <children>
                   <JFXComboBox fx:id="states1" onAction="#changeState1" promptText="Select state" />
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/link.png" />
+                     </image>
+                  </ImageView>
                   <JFXComboBox fx:id="states2" onAction="#changeState2" promptText="Select state" />
                </children>
             </HBox>

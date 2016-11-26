@@ -156,11 +156,11 @@
                   <Label fx:id="e1" />
                </children>
             </VBox>
-            <JFXButton buttonType="RAISED" onAction="#table" prefWidth="150.0" text="View Table">
+            <JFXButton buttonType="RAISED" onAction="#table" prefWidth="150.0" text="Transition Function">
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/images/table.png" />
+                        <Image url="@../assets/images/function.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utils.CreateNewWindow;
 
 public class ApplicationInit extends Application {
 
@@ -17,12 +18,6 @@ public class ApplicationInit extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/ApplicationView.fxml"));
-        JFXDecorator decorator = new JFXDecorator(primaryStage, root, false, true, true);
-        Scene scene = new Scene(decorator);
-        scene.getStylesheets().add(getClass().getResource("/assets/stylesheets/decorator.css").toExternalForm());
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        new CreateNewWindow("/views/ApplicationView.fxml", true);
     }
 }

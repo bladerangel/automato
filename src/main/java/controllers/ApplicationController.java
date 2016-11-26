@@ -14,7 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Event;
 import models.State;
-import utils.CreateNewState;
+import utils.CreateNewWindow;
 import views.LayoutGraph;
 
 import java.io.*;
@@ -147,23 +147,28 @@ public class ApplicationController implements Initializable {
 
     @FXML
     public void addState() throws IOException {
-        new CreateNewState("/views/AddState.fxml", this);
+        new CreateNewWindow("/views/AddState.fxml", this);
     }
 
     @FXML
     void addEvent() throws IOException {
-        new CreateNewState("/views/AddEvent.fxml", this);
+        new CreateNewWindow("/views/AddEvent.fxml", this);
     }
 
 
     @FXML
     void removeState() throws IOException {
-        new CreateNewState("/views/RemoveState.fxml", this);
+        new CreateNewWindow("/views/RemoveState.fxml", this);
     }
 
     @FXML
     void removeEvent() throws IOException {
-        new CreateNewState("/views/RemoveEvent.fxml", this);
+        new CreateNewWindow("/views/RemoveEvent.fxml", this);
+    }
+
+    @FXML
+    void table() throws IOException {
+        new CreateNewWindow("/views/TableView.fxml", this);
     }
 
     @FXML
@@ -271,7 +276,9 @@ public class ApplicationController implements Initializable {
     }
 
     public State findStateByStateAndEvent(State state, Event event) {
-        return layoutGraph.getGraph().getOpposite(state, event);
+        if (event != null)
+            return layoutGraph.getGraph().getOpposite(state, event);
+        return null;
     }
 
     public State findStateByName(String stateName) {
@@ -282,5 +289,17 @@ public class ApplicationController implements Initializable {
         }
         return null;
     }
+
+
+    public State find(State state, Event event) {
+        if (layoutGraph.getGraph().isIncident(state, event)) {
+            State des = layoutGraph.getGraph().getDest(event);
+            if (findStateByStateAndEvent(state, event).equals(des)) {
+                return des;
+            }
+        }
+        return null;
+    }
+
 
 }

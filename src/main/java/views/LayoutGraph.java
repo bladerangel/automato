@@ -26,26 +26,28 @@ public class LayoutGraph {
     private Layout<State, Event> layout;
     private BasicVisualizationServer<State, Event> basicVisualizationServer;
     private Transformer<State, Paint> statePaint;
+    private CustomizeLayoutState customizeLayoutState;
 
     public LayoutGraph() {
         graph = new DirectedSparseMultigraph<>();
         statePaint = state -> Color.GREEN;
+        customizeLayoutState = new CustomizeLayoutState();
     }
 
     public BasicVisualizationServer<State, Event> changeBasicVisualizationServer() {
         layout = new CircleLayout<>(graph);
-        layout.setSize(new Dimension(450, 450));
+        layout.setSize(new Dimension(500, 500));
         basicVisualizationServer = new BasicVisualizationServer<>(layout);
         basicVisualizationServer.setPreferredSize(new Dimension(500, 500));
         basicVisualizationServer.setBackground(Color.decode("#90A4AE"));
-		/*
+        /*
          * float dash[] = { 10.0f }; final Stroke edgeStroke = new
 		 * BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
 		 * 10.0f, dash, 0.0f); Transformer<Event, Stroke> edgeStrokeTransformer
 		 * = new Transformer<Event, Stroke>() { public Stroke transform(Event s)
 		 * { return edgeStroke; } };
 		 */
-
+        basicVisualizationServer.getRenderer().setVertexRenderer(customizeLayoutState);
         basicVisualizationServer.getRenderContext().setVertexFillPaintTransformer(statePaint);
         // basicVisualizationServer.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
         basicVisualizationServer.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<State>());

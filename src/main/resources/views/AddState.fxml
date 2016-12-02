@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -13,7 +14,7 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="258.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddStateController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="250.0" layoutY="100.0" prefHeight="258.0" prefWidth="439.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" layoutX="250.0" layoutY="100.0" prefHeight="258.0" prefWidth="439.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane fx:id="paneTitle">
                <children>
@@ -23,7 +24,9 @@
             <JFXTextField fx:id="name" labelFloat="true" onKeyReleased="#validate" promptText="Name">
                <VBox.margin>
                   <Insets left="40.0" right="40.0" />
-               </VBox.margin></JFXTextField>
+               </VBox.margin>
+            </JFXTextField>
+            <JFXCheckBox fx:id="marked" text="marked" />
             <JFXButton onAction="#save" text="Save">
                <VBox.margin>
                   <Insets />
@@ -41,5 +44,6 @@
    <stylesheets>
       <URL value="@../assets/stylesheets/button.css" />
       <URL value="@../assets/stylesheets/dialog.css" />
+      <URL value="@../assets/stylesheets/checkbox.css" />
    </stylesheets>
 </AnchorPane>

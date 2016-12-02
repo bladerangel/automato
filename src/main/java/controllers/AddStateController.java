@@ -6,6 +6,7 @@ import com.jfoenix.validation.base.ValidatorBase;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -26,13 +27,20 @@ public class AddStateController extends AbstractController implements Initializa
     @FXML
     private JFXTextField name;
 
+    @FXML
+    private CheckBox marked;
+
     private ValidatorState validator;
 
     private RequiredFieldValidator requiredFieldValidator;
 
     @FXML
     public void save() throws IOException {
-        if (name.validate() && applicationController.addStateGraph(new State(name.getText()))) {
+        State state = new State(name.getText());
+        if(marked.isSelected()){
+            state.marked();
+        }
+        if (name.validate() && applicationController.addStateGraph(state)) {
             Stage stage = (Stage) pane.getScene().getWindow();
             stage.close();
         }

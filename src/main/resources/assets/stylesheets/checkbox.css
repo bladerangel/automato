@@ -1,0 +1,11 @@
+.check-box{
+    -fx-text-fill: #FF7043;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-checked-color: #4CAF50;
+    -fx-unchecked-color: #FF7043;
+}
+
+.check-box:selected{
+    -fx-text-fill: #4CAF50;
+}

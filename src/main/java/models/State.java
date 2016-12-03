@@ -4,10 +4,12 @@ public class State {
 
     private String name;
     private boolean marked;
+    private boolean start;
 
     public State(String name) {
         this.name = name;
         this.marked = false;
+        this.start = false;
     }
 
     @Override
@@ -16,9 +18,17 @@ public class State {
         return name;
     }
 
-   public void marked(){
+    public void start() {
+        this.start = true;
+    }
+
+    public boolean isStart() {
+        return start;
+    }
+
+    public void marked() {
         this.marked = true;
-   }
+    }
 
     public boolean isMarked() {
         return marked;

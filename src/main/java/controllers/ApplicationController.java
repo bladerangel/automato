@@ -20,6 +20,7 @@ import views.LayoutGraph;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Rangel on 20/11/2016.
@@ -34,10 +35,16 @@ public class ApplicationController implements Initializable {
     private LayoutGraph layoutGraph;
 
     @FXML
+    private Label xo;
+
+    @FXML
     private Label x;
 
     @FXML
     private Label e;
+
+    @FXML
+    private Label xm;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,12 +59,20 @@ public class ApplicationController implements Initializable {
         //});
     }
 
+    public void setXo() {
+        xo.setText("Xo=" + getStateStart());
+    }
+
     public void setX() {
-        x.setText("X=" + getAllStates() + "");
+        x.setText("X=" + getAllStates());
     }
 
     public void setE() {
-        e.setText("E=" + getAllEvents() + "");
+        e.setText("E=" + getAllEvents());
+    }
+
+    public void setXm() {
+        xm.setText("Xm=" + getAllStatesMarked());
     }
 
     @FXML
@@ -214,7 +229,9 @@ public class ApplicationController implements Initializable {
         if (!containsState(state)) {
             layoutGraph.getGraph().addVertex(state);
             createAndSetSwingContent();
+            setXo();
             setX();
+            setXm();
             return true;
         }
         return false;
@@ -224,7 +241,9 @@ public class ApplicationController implements Initializable {
         if (state != null) {
             layoutGraph.getGraph().removeVertex(state);
             createAndSetSwingContent();
+            setXo();
             setX();
+            setXm();
             return true;
         }
         return false;
@@ -257,6 +276,14 @@ public class ApplicationController implements Initializable {
 
     public Collection<State> getAllStates() {
         return layoutGraph.getGraph().getVertices();
+    }
+
+    public Collection<State> getAllStatesMarked() {
+        return getAllStates().stream().filter(state -> state.isMarked()).collect(Collectors.toList());
+    }
+
+    public State getStateStart() {
+         return getAllStates().stream().filter(state -> state.isStart()).findFirst().orElse(new State(""));
     }
 
     public Collection<State> getAllStatesByEvent(Event event) {

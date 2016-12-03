@@ -9,6 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -26,7 +27,12 @@
                   <Insets left="40.0" right="40.0" />
                </VBox.margin>
             </JFXTextField>
-            <JFXCheckBox fx:id="marked" text="marked" />
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <JFXCheckBox fx:id="start" text="start" />
+                  <JFXCheckBox fx:id="marked" text="marked" />
+               </children>
+            </HBox>
             <JFXButton onAction="#save" text="Save">
                <VBox.margin>
                   <Insets />

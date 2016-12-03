@@ -28,6 +28,9 @@ public class AddStateController extends AbstractController implements Initializa
     private JFXTextField name;
 
     @FXML
+    private CheckBox start;
+
+    @FXML
     private CheckBox marked;
 
     private ValidatorState validator;
@@ -37,8 +40,11 @@ public class AddStateController extends AbstractController implements Initializa
     @FXML
     public void save() throws IOException {
         State state = new State(name.getText());
-        if(marked.isSelected()){
+        if (marked.isSelected()) {
             state.marked();
+        }
+        if (start.isSelected()) {
+            state.start();
         }
         if (name.validate() && applicationController.addStateGraph(state)) {
             Stage stage = (Stage) pane.getScene().getWindow();
@@ -59,6 +65,13 @@ public class AddStateController extends AbstractController implements Initializa
         name.getValidators().add(requiredFieldValidator);
     }
 
+    @Override
+    public void init(ApplicationController applicationController) {
+        super.init(applicationController);
+        if (!applicationController.getStateStart().getName().equals("")) {
+            start.setDisable(true);
+        }
+    }
 
     @FXML
     public void validate() {

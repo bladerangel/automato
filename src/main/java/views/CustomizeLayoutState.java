@@ -8,36 +8,40 @@ import models.Event;
 import models.State;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
+import java.awt.geom.*;
 
 /**
  * Created by Rangel on 02/12/2016.
  */
 public class CustomizeLayoutState implements Renderer.Vertex<State, Event> {
 
+    private Color color;
+    private GraphicsDecorator graphicsContext;
+    private Point2D center;
 
     @Override
     public void paintVertex(RenderContext<State, Event> renderContext, Layout<State, Event> layout, State state) {
-        GraphicsDecorator graphicsContext = renderContext.getGraphicsContext();
-        Point2D center = layout.transform(state);
-        Shape shape = new Ellipse2D.Double((int) center.getX() - 10, (int) center.getY() - 10, 20, 20);
-        Color color = Color.GREEN;
-        graphicsContext.setPaint(color);
-        graphicsContext.fill(shape);
+        graphicsContext = renderContext.getGraphicsContext();
+        center = layout.transform(state);
 
-        shape = new Ellipse2D.Double(center.getX() - 10, center.getY() - 10, 20, 20);
-        graphicsContext.setStroke(new BasicStroke(1));
+        color = Color.GREEN;
+        if (state.isStart()) {
+            color = Color.RED;
+        }
+        graphicsContext.setPaint(color);
+        graphicsContext.fill(drawCircle(10));
+
         graphicsContext.setPaint(Color.BLACK);
-        graphicsContext.draw(shape);
+        graphicsContext.draw(drawCircle(10));
 
         if (state.isMarked()) {
-            shape = new Ellipse2D.Double(center.getX() - 15, center.getY() - 15, 30, 30);
-            graphicsContext.setStroke(new BasicStroke(1));
             graphicsContext.setPaint(Color.BLACK);
-            graphicsContext.draw(shape);
+            graphicsContext.draw(drawCircle(15));
         }
-
     }
+
+    private Ellipse2D drawCircle(double place) {
+        return new Ellipse2D.Double(center.getX() - place, center.getY() - place, place * 2, place * 2);
+    }
+
 }

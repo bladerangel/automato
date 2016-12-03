@@ -150,10 +150,10 @@
          <children>
             <VBox fx:id="automatos" prefWidth="533.0">
                <children>
+                  <Label text="Xo=" fx:id="xo" />
                   <Label text="X=[]" fx:id="x" />
+                  <Label text="Xm=[]" fx:id="xm" />
                   <Label fx:id="e" text="E=[]" />
-                  <Label />
-                  <Label fx:id="e1" />
                </children>
             </VBox>
             <JFXButton buttonType="RAISED" onAction="#table" prefWidth="150.0" text="Transition Function">

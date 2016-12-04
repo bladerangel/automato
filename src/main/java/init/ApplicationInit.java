@@ -18,6 +18,10 @@ public class ApplicationInit extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new CreateNewWindow("/views/ApplicationView.fxml", true);
+        CreateNewWindow createNewWindow = new CreateNewWindow("ApplicationView");
+        createNewWindow.setStage(primaryStage);
+        createNewWindow.setBtnMin(true);
+        createNewWindow.setScene();
+        createNewWindow.show();
     }
 }

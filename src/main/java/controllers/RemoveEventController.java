@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Event;
 import models.State;
+import views.LayoutGraph;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +29,7 @@ public class RemoveEventController extends AbstractController implements Initial
     @FXML
     private JFXComboBox<State> states2;
 
+    private LayoutGraph layoutGraph;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,15 +39,16 @@ public class RemoveEventController extends AbstractController implements Initial
     @Override
     public void init(ApplicationController applicationController) {
         super.init(applicationController);
-        states1.getItems().addAll(applicationController.getAllStates());
+        layoutGraph = applicationController.getLayoutGraph();
+        states1.getItems().addAll(layoutGraph.getAllStates());
 
     }
 
     @FXML
     void changeEvent() {
         Event event = events.getSelectionModel().getSelectedItem();
-        State state1 = states1.getSelectionModel().getSelectedItem();
-        states2.getSelectionModel().select(applicationController.findStateByStateAndEvent(state1, event));
+        //State state1 = states1.getSelectionModel().getSelectedItem();
+        states2.getSelectionModel().select(layoutGraph.getStateDest(event));
     }
 
 
@@ -54,9 +57,9 @@ public class RemoveEventController extends AbstractController implements Initial
         states2.getItems().clear();
         events.getItems().clear();
         State state1 = states1.getSelectionModel().getSelectedItem();
-        applicationController.getAllEventByState(state1).forEach(event -> {
+        layoutGraph.getAllEventByStateOut(state1).forEach(event -> {
             events.getItems().add(event);
-            State state2 = applicationController.findStateByStateAndEvent(state1, event);
+            State state2 = layoutGraph.getStateDest(event);
             if (!states2.getItems().contains(state2)) {
                 states2.getItems().add(state2);
             }
@@ -64,14 +67,14 @@ public class RemoveEventController extends AbstractController implements Initial
 
         states2.getSelectionModel().selectFirst();
         State state2 = states2.getSelectionModel().getSelectedItem();
-        events.getSelectionModel().select(applicationController.findEvent(state1, state2));
+        events.getSelectionModel().select(layoutGraph.findEvent(state1, state2));
     }
 
     @FXML
     void changeState2() {
         State state1 = states1.getSelectionModel().getSelectedItem();
         State state2 = states2.getSelectionModel().getSelectedItem();
-        events.getSelectionModel().select(applicationController.findEvent(state1, state2));
+        events.getSelectionModel().select(layoutGraph.findEvent(state1, state2));
     }
 
     @FXML

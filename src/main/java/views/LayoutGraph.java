@@ -2,11 +2,15 @@ package views;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
@@ -39,8 +43,114 @@ public class LayoutGraph {
         return basicVisualizationServer;
     }
 
-    public Graph<State, Event> getGraph() {
-        return graph;
+    public void addState(State state) {
+        graph.addVertex(state);
     }
 
+    public void removeState(State state) {
+        graph.removeVertex(state);
+    }
+
+    public Collection<State> getAllStates() {
+        return graph.getVertices();
+    }
+
+    public State getStateStart() {
+        return getAllStates().stream().filter(state -> state.isStart()).findFirst().orElse(new State(""));
+    }
+
+    public Collection<State> getAllStatesMarked() {
+        return getAllStates().stream().filter(state -> state.isMarked()).collect(Collectors.toList());
+    }
+
+    public State findStateByName(String stateName) {
+        for (State state : getAllStates()) {
+            if (state.getName().equals(stateName)) {
+                return state;
+            }
+        }
+
+        return null;
+    }
+
+    public Collection<Event> findEventsByName(String eventName) {
+        Collection<Event> events = new ArrayList<>();
+        for (Event event : getAllEvents()) {
+            if (event.toString().equals(eventName)) {
+                events.add(event);
+            }
+        }
+        return events;
+    }
+
+    public void addEvent(Event event, State state1, State state2) {
+        graph.addEdge(event, state1, state2);
+    }
+
+    public void removeEvent(Event event) {
+        graph.removeEdge(event);
+    }
+
+    public Collection<Event> getAllEvents() {
+        return graph.getEdges();
+    }
+
+    public Event findEvent(State state1, State state2) {
+        return graph.findEdge(state1, state2);
+    }
+    // public Graph<State, Event> getGraph() {
+    //    return graph;
+    //}
+
+    public Collection<Event> getAllEventByStateIn(State state) {
+        return graph.getInEdges(state);
+    }
+
+    public Collection<Event> getAllEventByStateOut(State state) {
+        return graph.getOutEdges(state);
+    }
+
+
+    public State findStateByStateAndEvent(State state, Event event) {
+        return graph.getOpposite(state, event);
+    }
+
+    public State getStateSource(Event event) {
+        return graph.getSource(event);
+    }
+
+    public State getStateDest(Event event) {
+        return graph.getDest(event);
+    }
+
+    public Pair<State> getAllStatesByEvent(Event event) {
+        //return graph.getIncidentVertices(event);
+        return graph.getEndpoints(event);
+
+    }
+
+    public static LayoutGraph cloneGraph(LayoutGraph layoutGraph) {
+        LayoutGraph cloneLayoutGraph = new LayoutGraph();
+        layoutGraph.getAllStates().forEach(state -> cloneLayoutGraph.addState(state));
+        layoutGraph.getAllEvents().forEach(event -> {
+            cloneLayoutGraph.addEvent(event, event.getStateInit(), event.getStateFinal());
+        });
+        return cloneLayoutGraph;
+    }
+
+    public void removeAllGraph() {
+        graph = new DirectedSparseMultigraph<>();
+    }
+
+    public State findStateTable(State state, Event event) {
+        for (Event eventFind : findEventsByName(event.toString())) {
+            if (graph.isIncident(state, eventFind)) {
+                State des = graph.getDest(eventFind);
+                if (findStateByStateAndEvent(state, eventFind).equals(des)) {
+                    return des;
+                }
+            }
+        }
+        return null;
+    }
 }

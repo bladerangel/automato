@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.State;
+import views.LayoutGraph;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,6 +22,7 @@ public class RemoveStateController extends AbstractController implements Initial
     @FXML
     private JFXComboBox<State> states;
 
+    private LayoutGraph layoutGraph;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,7 +32,8 @@ public class RemoveStateController extends AbstractController implements Initial
     @Override
     public void init(ApplicationController applicationController) {
         super.init(applicationController);
-        states.getItems().addAll(applicationController.getAllStates());
+        layoutGraph = applicationController.getLayoutGraph();
+        states.getItems().addAll(layoutGraph.getAllStates());
     }
 
     @FXML

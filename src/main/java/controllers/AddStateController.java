@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.State;
+import views.LayoutGraph;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +37,8 @@ public class AddStateController extends AbstractController implements Initializa
     private ValidatorState validator;
 
     private RequiredFieldValidator requiredFieldValidator;
+
+    private LayoutGraph layoutGraph;
 
     @FXML
     public void save() throws IOException {
@@ -68,7 +71,8 @@ public class AddStateController extends AbstractController implements Initializa
     @Override
     public void init(ApplicationController applicationController) {
         super.init(applicationController);
-        if (!applicationController.getStateStart().getName().equals("")) {
+        layoutGraph = applicationController.getLayoutGraph();
+        if (!layoutGraph.getStateStart().getName().equals("")) {
             start.setDisable(true);
         }
     }
@@ -82,7 +86,7 @@ public class AddStateController extends AbstractController implements Initializa
 
         @Override
         protected void eval() {
-            if (applicationController.findStateByName(name.getText()) != null) {
+            if (layoutGraph.findStateByName(name.getText()) != null) {
                 hasErrors.set(true);
             } else {
                 hasErrors.set(false);

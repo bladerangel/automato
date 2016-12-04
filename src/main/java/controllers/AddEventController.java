@@ -45,8 +45,8 @@ public class AddEventController extends AbstractController implements Initializa
     @Override
     public void init(ApplicationController applicationController) {
         super.init(applicationController);
-        states1.getItems().addAll(applicationController.getAllStates());
-        states2.getItems().addAll(applicationController.getAllStates());
+        states1.getItems().addAll(applicationController.getLayoutGraph().getAllStates());
+        states2.getItems().addAll(applicationController.getLayoutGraph().getAllStates());
     }
 
     @FXML
@@ -56,9 +56,10 @@ public class AddEventController extends AbstractController implements Initializa
 
     @FXML
     void save() {
-        Event event = new Event(name.getText());
+
         State state1 = states1.getSelectionModel().getSelectedItem();
         State state2 = states2.getSelectionModel().getSelectedItem();
+        Event event = new Event(name.getText(), state1, state2);
         if (name.validate() && applicationController.addEventGraph(event, state1, state2)) {
             Stage stage = (Stage) pane.getScene().getWindow();
             stage.close();

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OperationsController">
+   <center>
+      <AnchorPane BorderPane.alignment="TOP_CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <Pane fx:id="pane" layoutX="60.0" layoutY="12.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0" />
+         </children></AnchorPane>
+   </center>
+   <right>
+      <VBox fx:id="buttons" prefWidth="150.0" spacing="10.0" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <JFXButton buttonType="RAISED" onAction="#accessible" prefHeight="80.0" prefWidth="150.0" text="Accessible">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="15.0" top="15.0" />
+               </padding>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#coaccessible" prefWidth="150.0" text="Co-accessible">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/remove.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="15.0" top="15.0" />
+               </padding>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#trim" prefWidth="150.0" text="Trim">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="15.0" top="15.0" />
+               </padding>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#complement" prefWidth="150.0" text="Complement">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/remove.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="15.0" top="15.0" />
+               </padding>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#testCase" prefWidth="150.0" text="Test Case">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/test.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="15.0" top="15.0" />
+               </padding>
+            </JFXButton>
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" right="40.0" top="25.0" />
+         </BorderPane.margin>
+      </VBox>
+   </right>
+   <stylesheets>
+      <URL value="@../assets/stylesheets/button.css" />
+      <URL value="@../assets/stylesheets/application.css" />
+      <URL value="@../assets/stylesheets/dialog.css" />
+   </stylesheets>
+   <top>
+      <Pane fx:id="paneTitle" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="title" layoutX="364.0" layoutY="11.0" text="Operations" />
+         </children>
+      </Pane>
+   </top>
+</BorderPane>

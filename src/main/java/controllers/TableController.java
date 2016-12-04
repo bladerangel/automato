@@ -15,6 +15,8 @@ import javafx.scene.control.TableView;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.State;
+import views.LayoutGraph;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,39 +33,48 @@ public class TableController extends AbstractController implements Initializable
 
     private ObservableList<State> states;
 
+    private LayoutGraph layoutGraph;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
+    private <T> TableColumn<T, ?> getTableColumnByName(TableView<T> tableView, String name) {
+        for (TableColumn<T, ?> col : tableView.getColumns())
+            if (col.getText().equals(name)) return col;
+        return null;
+    }
+
     @Override
     public void init(ApplicationController applicationController) {
         super.init(applicationController);
+        layoutGraph = applicationController.getLayoutGraph();
         eventsColumn = new TableColumn<>("States");
-
-
         eventsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-
         table.getColumns().add(eventsColumn);
-        applicationController.getAllEvents().forEach(event -> {
-            eventsColumn = new TableColumn<>(event.toString());
+        layoutGraph.getAllEvents().forEach(event -> {
+            eventsColumn = getTableColumnByName(table, event.toString());
+            if (eventsColumn == null) {
+                eventsColumn = new TableColumn<>(event.toString());
+                eventsColumn.setSortable(false);
+                table.getColumns().add(eventsColumn);
+            }
             eventsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             eventsColumn.setCellFactory(param -> new TableCell<State, String>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
                     if (!empty) {
-                        State state = applicationController.find(applicationController.findStateByName(item), event);
+                        State state = layoutGraph.findStateTable(layoutGraph.findStateByName(item), event);
                         if (state != null)
                             setText(state.getName());
                         else
                             setText("-");
+
                     }
                 }
             });
-            eventsColumn.setSortable(false);
-            table.getColumns().add(eventsColumn);
         });
 
         table.setItems(getStates());
@@ -72,7 +83,7 @@ public class TableController extends AbstractController implements Initializable
 
     public ObservableList<State> getStates() {
         states = FXCollections.observableArrayList();
-        states.setAll(applicationController.getAllStates());
+        states.setAll(applicationController.getLayoutGraph().getAllStates());
         return states;
     }
 

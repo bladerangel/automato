@@ -18,26 +18,39 @@ public class CreateNewWindow {
     private Scene scene;
     private JFXDecorator decorator;
     private AbstractController abstractController;
+    private boolean btnMin;
 
-    public CreateNewWindow(String view, boolean btnMin) throws IOException {
-        fxmlLoader = new FXMLLoader(getClass().getResource(view));
-        stage = new Stage();
-        decorator = new JFXDecorator(stage, fxmlLoader.load(), false, true, btnMin);
-        scene = new Scene(decorator);
-
-        scene.getStylesheets().add(getClass().getResource("/assets/stylesheets/decorator.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setResizable(false);
-        if (btnMin)
-            stage.show();
+    public CreateNewWindow(String view) throws IOException {
+        fxmlLoader = new FXMLLoader(getClass().getResource("/views/" + view + ".fxml"));
     }
 
-    public CreateNewWindow(String view, ApplicationController applicationController) throws IOException {
-        this(view, false);
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setBtnMin(boolean btnMin) {
+        this.btnMin = btnMin;
+    }
+
+    public void setScene() throws IOException {
+        decorator = new JFXDecorator(this.stage, fxmlLoader.load(), false, true, btnMin);
+        scene = new Scene(decorator);
+        scene.getStylesheets().add(getClass().getResource("/assets/stylesheets/decorator.css").toExternalForm());
+        this.stage.setScene(scene);
+        this.stage.setResizable(false);
+    }
+
+    public void setAbstractController(ApplicationController applicationController) {
         abstractController = fxmlLoader.getController();
         abstractController.init(applicationController);
-        decorator.setOnCloseButtonAction(() -> stage.close());
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
     }
+
+    public void show() {
+        if (!btnMin) {
+            decorator.setOnCloseButtonAction(() -> this.stage.close());
+            this.stage.initModality(Modality.APPLICATION_MODAL);
+        }
+        this.stage.show();
+    }
+
 }

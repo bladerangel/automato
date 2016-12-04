@@ -1,15 +1,18 @@
 package controllers;
 
 
+import edu.uci.ics.jung.graph.Graph;
 import javafx.embed.swing.SwingNode;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.SubScene;
 import javafx.scene.control.Alert;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Event;
@@ -34,6 +37,8 @@ public class ApplicationController implements Initializable {
 
     private LayoutGraph layoutGraph;
 
+    private CreateNewWindow createNewWindow;
+
     @FXML
     private Label xo;
 
@@ -48,6 +53,7 @@ public class ApplicationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         layoutGraph = new LayoutGraph();
         swingNode = new SwingNode();
         pane.getChildren().add(swingNode);
@@ -60,24 +66,32 @@ public class ApplicationController implements Initializable {
     }
 
     public void setXo() {
-        xo.setText("Xo=" + getStateStart());
+        xo.setText("Xo=" + layoutGraph.getStateStart());
     }
 
     public void setX() {
-        x.setText("X=" + getAllStates());
+        x.setText("X=" + layoutGraph.getAllStates());
     }
 
     public void setE() {
-        e.setText("E=" + getAllEvents());
+        e.setText("E=" + layoutGraph.getAllEvents());
     }
 
     public void setXm() {
-        xm.setText("Xm=" + getAllStatesMarked());
+        xm.setText("Xm=" + layoutGraph.getAllStatesMarked());
+    }
+
+    public LayoutGraph getLayoutGraph() {
+        return layoutGraph;
     }
 
     @FXML
     public void newProject() {
-        removeAllGraph();
+        layoutGraph.removeAllGraph();
+        setXo();
+        setX();
+        setXm();
+        setE();
         createAndSetSwingContent();
     }
 
@@ -91,7 +105,7 @@ public class ApplicationController implements Initializable {
             Stage stage = (Stage) pane.getScene().getWindow();
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
-                removeAllGraph();
+                layoutGraph.removeAllGraph();
                 FileReader file = new FileReader(selectedFile);
                 BufferedReader bufferedReader = new BufferedReader(file);
                 String line = bufferedReader.readLine();
@@ -104,12 +118,13 @@ public class ApplicationController implements Initializable {
                 }
                 line = bufferedReader.readLine();
                 if (line != null) {
-                    String events[] = line.split("],");
+                    String events[] = line.split(">,");
                     for (String event : events) {
-                        String eventName = event.substring(0, event.indexOf("["));
-                        String state1 = event.substring(event.indexOf("[") + 1, event.indexOf(","));
+                        String eventName = event.substring(0, event.indexOf("<") - 1);
+                        String state1 = event.substring(event.indexOf("<") + 1, event.indexOf(","));
                         String state2 = event.substring(event.indexOf(",") + 2);
-                        addEventGraph(new Event(eventName), findStateByName(state1), findStateByName(state2));
+                        Event eventSave = new Event(eventName, layoutGraph.findStateByName(state1), layoutGraph.findStateByName(state2));
+                        addEventGraph(eventSave, eventSave.getStateInit(), eventSave.getStateFinal());
 
                     }
                     createAndSetSwingContent();
@@ -132,24 +147,26 @@ public class ApplicationController implements Initializable {
                     new FileChooser.ExtensionFilter("Text Files", "*.txt"));
             Stage stage = (Stage) pane.getScene().getWindow();
             File save = fileChooser.showSaveDialog(stage);
+            if (save != null) {
+                FileWriter file = new FileWriter(save);
+                BufferedWriter bufferedWriter = new BufferedWriter(file);
+                for (State state : layoutGraph.getAllStates()) {
+                    bufferedWriter.write(state.toString() + ",");
+                }
 
-            FileWriter file = new FileWriter(save);
-            BufferedWriter bufferedWriter = new BufferedWriter(file);
-            for (State state : getAllStates()) {
-                bufferedWriter.write(state.toString() + ",");
+                bufferedWriter.newLine();
+                for (Event event : layoutGraph.getAllEvents()) {
+                    bufferedWriter.write(event.toString() + " ");
+                    bufferedWriter.write(layoutGraph.getAllStatesByEvent(event) + ",");
+                }
+                bufferedWriter.close();
+                file.close();
+                alertMessage("File saved successfully!");
             }
-
-            bufferedWriter.newLine();
-            for (Event event : getAllEvents()) {
-                bufferedWriter.write(event.toString() + " ");
-                bufferedWriter.write(getAllStatesByEvent(event) + ",");
-            }
-            bufferedWriter.close();
-            file.close();
-            alertMessage("File saved successfully!");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public void alertMessage(String message) {
@@ -159,35 +176,44 @@ public class ApplicationController implements Initializable {
         alert.show();
     }
 
+    public void newWindow(String view) throws IOException {
+        createNewWindow = new CreateNewWindow(view);
+        createNewWindow.setStage(new Stage());
+        createNewWindow.setBtnMin(false);
+        createNewWindow.setScene();
+        createNewWindow.setAbstractController(this);
+        createNewWindow.show();
+    }
 
     @FXML
     public void addState() throws IOException {
-        new CreateNewWindow("/views/AddState.fxml", this);
+        newWindow("AddState");
     }
 
     @FXML
     void addEvent() throws IOException {
-        new CreateNewWindow("/views/AddEvent.fxml", this);
+        newWindow("AddEvent");
     }
 
 
     @FXML
     void removeState() throws IOException {
-        new CreateNewWindow("/views/RemoveState.fxml", this);
+        newWindow("RemoveState");
     }
 
     @FXML
     void removeEvent() throws IOException {
-        new CreateNewWindow("/views/RemoveEvent.fxml", this);
+        newWindow("RemoveEvent");
     }
 
     @FXML
     void table() throws IOException {
-        new CreateNewWindow("/views/TableView.fxml", this);
+        newWindow("TableView");
     }
 
     @FXML
-    void testCase() {
+    void testCase() throws IOException {
+        /*
         removeAllGraph();
 
         List<State> listStates = new ArrayList<>();
@@ -213,21 +239,23 @@ public class ApplicationController implements Initializable {
         addEventGraph(new Event("G-I"), findStateByName("G"), findStateByName("I"));
 
         createAndSetSwingContent();
-
+    */
+        newWindow("Operations");
     }
 
-    private boolean containsState(State state) {
-        for (State s : layoutGraph.getGraph().getVertices()) {
-            if (s.toString().equals(state.toString())) {
-                return true;
+    /*
+        private boolean containsState(State state) {
+            for (State s : layoutGraph.getGraph().getVertices()) {
+                if (s.toString().equals(state.toString())) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
-    }
-
+    */
     public boolean addStateGraph(State state) {
-        if (!containsState(state)) {
-            layoutGraph.getGraph().addVertex(state);
+        if (!layoutGraph.getAllStates().contains(state)) {
+            layoutGraph.addState(state);
             createAndSetSwingContent();
             setXo();
             setX();
@@ -239,7 +267,7 @@ public class ApplicationController implements Initializable {
 
     public boolean removeStateGraph(State state) {
         if (state != null) {
-            layoutGraph.getGraph().removeVertex(state);
+            layoutGraph.removeState(state);
             createAndSetSwingContent();
             setXo();
             setX();
@@ -251,7 +279,7 @@ public class ApplicationController implements Initializable {
 
     public boolean addEventGraph(Event event, State state1, State state2) {
         if (state1 != null && state2 != null) {
-            layoutGraph.getGraph().addEdge(event, state1, state2);
+            layoutGraph.addEvent(event, state1, state2);
             createAndSetSwingContent();
             setE();
             return true;
@@ -261,72 +289,12 @@ public class ApplicationController implements Initializable {
 
     public boolean removeEventGraph(Event event) {
         if (event != null) {
-            layoutGraph.getGraph().removeEdge(event);
+            layoutGraph.removeEvent(event);
             createAndSetSwingContent();
             setE();
             return true;
         }
         return false;
     }
-
-    public void removeAllGraph() {
-        layoutGraph = new LayoutGraph();
-    }
-
-
-    public Collection<State> getAllStates() {
-        return layoutGraph.getGraph().getVertices();
-    }
-
-    public Collection<State> getAllStatesMarked() {
-        return getAllStates().stream().filter(state -> state.isMarked()).collect(Collectors.toList());
-    }
-
-    public State getStateStart() {
-         return getAllStates().stream().filter(state -> state.isStart()).findFirst().orElse(new State(""));
-    }
-
-    public Collection<State> getAllStatesByEvent(Event event) {
-        return layoutGraph.getGraph().getIncidentVertices(event);
-    }
-
-    public Collection<Event> getAllEvents() {
-        return layoutGraph.getGraph().getEdges();
-    }
-
-    public Collection<Event> getAllEventByState(State state) {
-        return layoutGraph.getGraph().getOutEdges(state);
-    }
-
-    public Event findEvent(State state1, State state2) {
-        return layoutGraph.getGraph().findEdge(state1, state2);
-    }
-
-    public State findStateByStateAndEvent(State state, Event event) {
-        if (event != null)
-            return layoutGraph.getGraph().getOpposite(state, event);
-        return null;
-    }
-
-    public State findStateByName(String stateName) {
-        for (State state : getAllStates()) {
-            if (state.toString().equals(stateName)) {
-                return state;
-            }
-        }
-        return null;
-    }
-
-
-    public State find(State state, Event event) {
-        if (layoutGraph.getGraph().isIncident(state, event)) {
-            State des = layoutGraph.getGraph().getDest(event);
-            if (findStateByStateAndEvent(state, event).equals(des)) {
-                return des;
-            }
-        }
-        return null;
-    }
-
 
 }

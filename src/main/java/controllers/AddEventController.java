@@ -1,6 +1,6 @@
 package controllers;
 
-import Services.ComboBoxService;
+import services.ComboBoxService;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;

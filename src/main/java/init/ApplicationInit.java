@@ -4,7 +4,7 @@ package init;/**
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import Services.CreateWindowService;
+import services.CreateWindowService;
 
 public class ApplicationInit extends Application {
 

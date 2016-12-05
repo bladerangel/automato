@@ -14,12 +14,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Event;
 import models.State;
-import Services.CreateWindowService;
+import services.CreateWindowService;
 import views.LayoutGraph;
 
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Rangel on 20/11/2016.
@@ -148,10 +149,10 @@ public class ApplicationController implements Initializable {
                 }
                 line = bufferedReader.readLine();
                 if (line != null) {
-                    String events[] = line.split(">,");
+                    String events[] = line.split("],");
                     for (String event : events) {
-                        String eventName = event.substring(0, event.indexOf("<") - 1);
-                        String state1 = event.substring(event.indexOf("<") + 1, event.indexOf(","));
+                        String eventName = event.substring(0, event.indexOf("[") - 1);
+                        String state1 = event.substring(event.indexOf("[") + 1, event.indexOf(","));
                         String state2 = event.substring(event.indexOf(",") + 2);
                         Event eventSave = new Event(eventName, layoutGraph.findStateByName(state1), layoutGraph.findStateByName(state2));
                         addEventGraph(eventSave, eventSave.getStateInit(), eventSave.getStateFinal());
@@ -187,7 +188,7 @@ public class ApplicationController implements Initializable {
                 bufferedWriter.newLine();
                 for (Event event : layoutGraph.getAllEvents()) {
                     bufferedWriter.write(event.getLinkName() + " ");
-                    bufferedWriter.write(layoutGraph.getAllStatesByEvent(event) + ",");
+                    bufferedWriter.write(layoutGraph.getAllStatesByEvent(event).stream().map(State::getName).collect(Collectors.toList()) + ",");
                 }
                 bufferedWriter.close();
                 file.close();

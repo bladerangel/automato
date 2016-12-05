@@ -139,12 +139,20 @@ public class LayoutGraph {
     public State findStateTable(State state, Event event) {
         for (Event eventFind : findEventsByName(event.getLinkName())) {
             if (graph.isIncident(state, eventFind)) {
-                State des = graph.getDest(eventFind);
+                State des = getStateDest(eventFind);
                 if (findStateByStateAndEvent(state, eventFind).equals(des)) {
                     return des;
                 }
             }
         }
         return null;
+    }
+
+    public Collection<State> getStatesPredecessor(State state) {
+        return graph.getPredecessors(state);
+    }
+
+    public Collection<State> getStatesSuccessors(State state) {
+        return graph.getSuccessors(state);
     }
 }

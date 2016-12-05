@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4104af-3be8-4e12-b17c-2addb3b45838" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Services/ComboBoxService.java" afterPath="$PROJECT_DIR$/src/main/java/services/ComboBoxService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Services/CreateWindowService.java" afterPath="$PROJECT_DIR$/src/main/java/services/CreateWindowService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/AddEventController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/AddEventController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/views/AddEvent.fxml" afterPath="$PROJECT_DIR$/src/main/resources/views/AddEvent.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/OperationsController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/OperationsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/RemoveEventController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/RemoveEventController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/RemoveStateController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/RemoveStateController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/init/ApplicationInit.java" afterPath="$PROJECT_DIR$/src/main/java/init/ApplicationInit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/views/LayoutGraph.java" afterPath="$PROJECT_DIR$/src/main/java/views/LayoutGraph.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -62,7 +69,6 @@
         <option value="$PROJECT_DIR$/src/main/java/controllers/AbstractController.java" />
         <option value="$PROJECT_DIR$/src/main/java/utils/CreateNewWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/AddStateController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
         <option value="$PROJECT_DIR$/src/main/java/views/CustomizeLayoutState.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/TableController.java" />
         <option value="$PROJECT_DIR$/src/main/java/Services/ComboBoxFactory.java" />
@@ -71,9 +77,10 @@
         <option value="$PROJECT_DIR$/src/main/java/Services/ComboBoxService.java" />
         <option value="$PROJECT_DIR$/src/main/java/Services/CreateNewWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/init/ApplicationInit.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/OperationsController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/views/LayoutGraph.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/AddEventController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/views/LayoutGraph.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controllers/OperationsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
       </list>
     </option>
   </component>
@@ -143,6 +150,8 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -197,8 +206,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -673,11 +680,12 @@
       <workItem from="1480888534402" duration="8639000" />
       <workItem from="1480897978170" duration="271000" />
       <workItem from="1480900461638" duration="2109000" />
+      <workItem from="1480906685763" duration="1444000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58856000" />
+    <option name="totallyTimeSpent" value="60300000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -782,9 +790,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1343">
           <caret line="79" column="43" lean-forward="false" selection-start-line="79" selection-start-column="43" selection-end-line="79" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -815,8 +821,10 @@
           <caret line="25" column="58" lean-forward="false" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3624#3625#0" expanded="true" />
-            <element signature="e#3678#3679#0" expanded="true" />
+            <element signature="e#5006#5007#0" expanded="true" />
+            <element signature="e#5057#5058#0" expanded="true" />
+            <element signature="e#5122#5123#0" expanded="true" />
+            <element signature="e#5171#5172#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1009,39 +1017,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/AddStateController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="25" column="28" lean-forward="false" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="215" column="5" lean-forward="false" selection-start-line="215" selection-start-column="5" selection-end-line="215" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/RemoveStateController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/TableController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12">
-          <caret line="46" column="77" lean-forward="false" selection-start-line="46" selection-start-column="77" selection-end-line="46" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/init/ApplicationInit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1059,14 +1038,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Services/ComboBoxService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/services/ComboBoxService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="51" column="34" lean-forward="false" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Services/CreateWindowService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/services/CreateWindowService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
@@ -1077,28 +1056,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/OperationsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-221">
-          <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/views/LayoutGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3624#3625#0" expanded="true" />
-            <element signature="e#3678#3679#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1117,6 +1074,64 @@
           <folding>
             <element signature="e#2695#2696#0" expanded="true" />
             <element signature="e#2726#2727#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/AddStateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="25" column="28" lean-forward="false" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/init/ApplicationInit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/TableController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="46" column="77" lean-forward="false" selection-start-line="46" selection-start-column="77" selection-end-line="46" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/views/LayoutGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="60" column="100" lean-forward="true" selection-start-line="60" selection-start-column="81" selection-end-line="60" selection-end-column="100" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5006#5007#0" expanded="true" />
+            <element signature="e#5057#5058#0" expanded="true" />
+            <element signature="e#5122#5123#0" expanded="true" />
+            <element signature="e#5171#5172#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="179" column="55" lean-forward="true" selection-start-line="179" selection-start-column="55" selection-end-line="179" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/OperationsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="78" column="63" lean-forward="true" selection-start-line="78" selection-start-column="63" selection-end-line="78" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

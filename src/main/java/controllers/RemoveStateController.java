@@ -1,13 +1,11 @@
 package controllers;
 
-import Services.ComboBoxService;
+import services.ComboBoxService;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import models.State;
 import views.LayoutGraph;
 

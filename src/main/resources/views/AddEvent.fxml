@@ -34,7 +34,7 @@
                </VBox.margin></JFXTextField>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
-                  <JFXComboBox fx:id="states1" promptText="Select state" />
+                  <JFXComboBox fx:id="states1" onAction="#changeState1" promptText="Select state" />
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/link.png" />

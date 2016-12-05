@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ce4104af-3be8-4e12-b17c-2addb3b45838" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/OperationsController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/OperationsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/AddEventController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/AddEventController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/views/AddEvent.fxml" afterPath="$PROJECT_DIR$/src/main/resources/views/AddEvent.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,16 +64,16 @@
         <option value="$PROJECT_DIR$/src/main/java/controllers/AddStateController.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/ApplicationController.java" />
         <option value="$PROJECT_DIR$/src/main/java/views/CustomizeLayoutState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/views/LayoutGraph.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/TableController.java" />
         <option value="$PROJECT_DIR$/src/main/java/Services/ComboBoxFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/RemoveStateController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/AddEventController.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/RemoveEventController.java" />
         <option value="$PROJECT_DIR$/src/main/java/Services/ComboBoxService.java" />
         <option value="$PROJECT_DIR$/src/main/java/Services/CreateNewWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/init/ApplicationInit.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/OperationsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/views/LayoutGraph.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controllers/AddEventController.java" />
       </list>
     </option>
   </component>
@@ -141,8 +142,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -196,34 +195,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="automato" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="automato" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -697,11 +672,12 @@
       <workItem from="1480878664472" duration="165000" />
       <workItem from="1480888534402" duration="8639000" />
       <workItem from="1480897978170" duration="271000" />
+      <workItem from="1480900461638" duration="2109000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56747000" />
+    <option name="totallyTimeSpent" value="58856000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -722,7 +698,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -839,6 +815,8 @@
           <caret line="25" column="58" lean-forward="false" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3624#3625#0" expanded="true" />
+            <element signature="e#3678#3679#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -934,7 +912,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -945,7 +922,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -1033,13 +1009,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/AddEventController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="55" column="66" lean-forward="true" selection-start-line="55" selection-start-column="66" selection-end-line="55" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/AddStateController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1052,13 +1021,6 @@
         <state relative-caret-position="102">
           <caret line="215" column="5" lean-forward="false" selection-start-line="215" selection-start-column="5" selection-end-line="215" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/RemoveEventController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1118,22 +1080,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/views/LayoutGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="33" column="74" lean-forward="true" selection-start-line="33" selection-start-column="74" selection-end-line="33" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/OperationsController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-221">
           <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/views/LayoutGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3624#3625#0" expanded="true" />
+            <element signature="e#3678#3679#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/RemoveEventController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-525">
+          <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/AddEventController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding>
+            <element signature="e#2695#2696#0" expanded="true" />
+            <element signature="e#2726#2727#0" expanded="true" />
           </folding>
         </state>
       </provider>

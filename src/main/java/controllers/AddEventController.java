@@ -81,19 +81,30 @@ public class AddEventController extends AbstractController implements Initializa
         }
     }
 
+    @FXML
+    void changeState1() {
+        name.validate();
+    }
+
     private class ValidatorEvent extends ValidatorBase {
 
         @Override
         protected void eval() {
             State state1 = states1.getSelectionModel().getSelectedItem();
-            State state2 = states2.getSelectionModel().getSelectedItem();
-            if (state1 != null && state2 != null) {
-                Event event = layoutGraph.findEvent(state1, state2);
-                if (event != null && event.getLinkName().equals(name.getText())) {
+            if (state1 != null) {
+                boolean contains = false;
+                for (Event event : layoutGraph.findEventsByName(name.getText())) {
+                    if (layoutGraph.getStateSource(event).equals(state1)) {
+                        contains = true;
+                        break;
+                    }
+                }
+                if (contains) {
                     hasErrors.set(true);
                 } else {
                     hasErrors.set(false);
                 }
+
             }
         }
     }

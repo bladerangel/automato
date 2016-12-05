@@ -21,9 +21,11 @@ public class OperationsController extends AbstractController implements Initiali
 
     private SwingNode swingNode;
 
+    private LayoutGraph cloneLayoutGraph;
+
     public boolean containsEventsIn(State state) {
-        for (Event event : layoutGraph.getAllEventByStateIn(state)) {
-            if (layoutGraph.getStateSource(event) != state)
+        for (Event event : cloneLayoutGraph.getAllEventByStateIn(state)) {
+            if (cloneLayoutGraph.getStateSource(event) != state)
                 return true;
         }
         return false;
@@ -31,9 +33,9 @@ public class OperationsController extends AbstractController implements Initiali
 
     @FXML
     void accessible() {
-        for (State state : LayoutGraph.cloneGraph(layoutGraph).getAllStates()) {
+        for (State state : LayoutGraph.cloneGraph(cloneLayoutGraph).getAllStates()) {
             if (!state.isStart() && !containsEventsIn(state))
-                layoutGraph.removeState(state);
+                cloneLayoutGraph.removeState(state);
         }
         createAndSetSwingContent();
     }
@@ -65,14 +67,14 @@ public class OperationsController extends AbstractController implements Initiali
 
     public void createAndSetSwingContent() {
         //SwingUtilities.invokeLater(() -> {
-        swingNode.setContent(layoutGraph.changeBasicVisualizationServer());
+        swingNode.setContent(cloneLayoutGraph.changeBasicVisualizationServer());
         //});
     }
 
     @Override
     public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
         super.init(applicationController, layoutGraph);
-        // layoutGraph = LayoutGraph.cloneGraph(layoutGraph);
+        cloneLayoutGraph = LayoutGraph.cloneGraph(layoutGraph);
         swingNode = new SwingNode();
         pane.getChildren().add(swingNode);
         createAndSetSwingContent();

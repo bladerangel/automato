@@ -76,6 +76,8 @@ public class AddEventController extends AbstractController implements Initializa
         State state2 = states2.getSelectionModel().getSelectedItem();
         Event event = new Event(name.getText(), state1, state2);
         if (name.validate() && applicationController.addEventGraph(event, state1, state2)) {
+            if (state1.isAccessible())
+                state2.setAccessible(true);
             Stage stage = (Stage) pane.getScene().getWindow();
             stage.close();
         }

@@ -88,6 +88,14 @@ public class RemoveEventController extends AbstractController implements Initial
     void remove() {
         Event event = events.getSelectionModel().getSelectedItem();
         if (applicationController.removeEventGraph(event)) {
+            event.getStateFinal().setAccessible(false);
+            for (State statePre : layoutGraph.getStatesPredecessor(event.getStateFinal())) {
+                if (statePre.isAccessible()) {
+                    event.getStateFinal().setAccessible(true);
+                    break;
+                }
+
+            }
             Stage stage = (Stage) pane.getScene().getWindow();
             stage.close();
         }

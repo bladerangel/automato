@@ -12,7 +12,6 @@ import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
-import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import models.Event;
 import models.State;
@@ -35,10 +34,9 @@ public class LayoutGraph {
         basicVisualizationServer = new BasicVisualizationServer<>(layout);
         basicVisualizationServer.setPreferredSize(new Dimension(500, 500));
         basicVisualizationServer.setBackground(Color.decode("#90A4AE"));
-
         basicVisualizationServer.getRenderer().setVertexRenderer(customizeLayoutState);
-        basicVisualizationServer.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<>());
-        basicVisualizationServer.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<>());
+        basicVisualizationServer.getRenderContext().setVertexLabelTransformer(state -> state.getName());
+        basicVisualizationServer.getRenderContext().setEdgeLabelTransformer(event -> event.getLinkName());
         basicVisualizationServer.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
         return basicVisualizationServer;
     }
@@ -76,7 +74,7 @@ public class LayoutGraph {
     public Collection<Event> findEventsByName(String eventName) {
         Collection<Event> events = new ArrayList<>();
         for (Event event : getAllEvents()) {
-            if (event.toString().equals(eventName)) {
+            if (event.getLinkName().equals(eventName)) {
                 events.add(event);
             }
         }
@@ -98,9 +96,6 @@ public class LayoutGraph {
     public Event findEvent(State state1, State state2) {
         return graph.findEdge(state1, state2);
     }
-    // public Graph<State, Event> getGraph() {
-    //    return graph;
-    //}
 
     public Collection<Event> getAllEventByStateIn(State state) {
         return graph.getInEdges(state);
@@ -109,7 +104,6 @@ public class LayoutGraph {
     public Collection<Event> getAllEventByStateOut(State state) {
         return graph.getOutEdges(state);
     }
-
 
     public State findStateByStateAndEvent(State state, Event event) {
         return graph.getOpposite(state, event);
@@ -143,7 +137,7 @@ public class LayoutGraph {
     }
 
     public State findStateTable(State state, Event event) {
-        for (Event eventFind : findEventsByName(event.toString())) {
+        for (Event eventFind : findEventsByName(event.getLinkName())) {
             if (graph.isIncident(state, eventFind)) {
                 State des = graph.getDest(eventFind);
                 if (findStateByStateAndEvent(state, eventFind).equals(des)) {

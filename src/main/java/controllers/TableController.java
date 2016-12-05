@@ -1,10 +1,5 @@
 package controllers;
 
-import com.jfoenix.controls.JFXTreeTableColumn;
-
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,7 +28,6 @@ public class TableController extends AbstractController implements Initializable
 
     private ObservableList<State> states;
 
-    private LayoutGraph layoutGraph;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,16 +41,15 @@ public class TableController extends AbstractController implements Initializable
     }
 
     @Override
-    public void init(ApplicationController applicationController) {
-        super.init(applicationController);
-        layoutGraph = applicationController.getLayoutGraph();
+    public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
+        super.init(applicationController, layoutGraph);
         eventsColumn = new TableColumn<>("States");
         eventsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         table.getColumns().add(eventsColumn);
         layoutGraph.getAllEvents().forEach(event -> {
-            eventsColumn = getTableColumnByName(table, event.toString());
+            eventsColumn = getTableColumnByName(table, event.getLinkName());
             if (eventsColumn == null) {
-                eventsColumn = new TableColumn<>(event.toString());
+                eventsColumn = new TableColumn<>(event.getLinkName());
                 eventsColumn.setSortable(false);
                 table.getColumns().add(eventsColumn);
             }
@@ -83,7 +76,7 @@ public class TableController extends AbstractController implements Initializable
 
     public ObservableList<State> getStates() {
         states = FXCollections.observableArrayList();
-        states.setAll(applicationController.getLayoutGraph().getAllStates());
+        states.setAll(layoutGraph.getAllStates());
         return states;
     }
 

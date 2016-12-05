@@ -1,29 +1,25 @@
 package controllers;
 
 
-import edu.uci.ics.jung.graph.Graph;
 import javafx.embed.swing.SwingNode;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.SubScene;
 import javafx.scene.control.Alert;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Event;
 import models.State;
-import utils.CreateNewWindow;
+import Services.CreateWindowService;
 import views.LayoutGraph;
 
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by Rangel on 20/11/2016.
@@ -37,7 +33,7 @@ public class ApplicationController implements Initializable {
 
     private LayoutGraph layoutGraph;
 
-    private CreateNewWindow createNewWindow;
+    private CreateWindowService createWindowService;
 
     @FXML
     private Label xo;
@@ -65,24 +61,58 @@ public class ApplicationController implements Initializable {
         //});
     }
 
+    public void append(Label label, String text) {
+        label.setText(label.getText() + text);
+    }
+
+    public void clean(Label label) {
+        label.setText("");
+    }
+
+    public void cleanFinal(Label label) {
+        label.setText(label.getText().substring(0, label.getText().lastIndexOf(",")));
+    }
+
     public void setXo() {
-        xo.setText("Xo=" + layoutGraph.getStateStart());
+        clean(xo);
+        append(xo, "Xo=" + layoutGraph.getStateStart().getName());
     }
 
     public void setX() {
-        x.setText("X=" + layoutGraph.getAllStates());
+        clean(x);
+        append(x, "X={");
+        if (!layoutGraph.getAllStates().isEmpty()) {
+            layoutGraph.getAllStates().forEach(state -> {
+                append(x, state.getName() + ",");
+            });
+            cleanFinal(x);
+        }
+        append(x, "}");
     }
 
     public void setE() {
-        e.setText("E=" + layoutGraph.getAllEvents());
+        clean(e);
+        append(e, "E={");
+        if (!layoutGraph.getAllEvents().isEmpty()) {
+            layoutGraph.getAllEvents().forEach(event -> {
+                append(e, event.getLinkName() + ",");
+            });
+            cleanFinal(e);
+        }
+        append(e, "}");
     }
 
     public void setXm() {
-        xm.setText("Xm=" + layoutGraph.getAllStatesMarked());
-    }
-
-    public LayoutGraph getLayoutGraph() {
-        return layoutGraph;
+        clean(xm);
+        append(xm, "Xm={");
+        if (!layoutGraph.getAllStatesMarked().isEmpty()) {
+            layoutGraph.getAllStatesMarked().forEach(state -> {
+                append(xm, state.getName() + ",");
+            });
+            if (!layoutGraph.getAllStatesMarked().isEmpty())
+                cleanFinal(xm);
+        }
+        append(xm, "}");
     }
 
     @FXML
@@ -151,12 +181,12 @@ public class ApplicationController implements Initializable {
                 FileWriter file = new FileWriter(save);
                 BufferedWriter bufferedWriter = new BufferedWriter(file);
                 for (State state : layoutGraph.getAllStates()) {
-                    bufferedWriter.write(state.toString() + ",");
+                    bufferedWriter.write(state.getName() + ",");
                 }
 
                 bufferedWriter.newLine();
                 for (Event event : layoutGraph.getAllEvents()) {
-                    bufferedWriter.write(event.toString() + " ");
+                    bufferedWriter.write(event.getLinkName() + " ");
                     bufferedWriter.write(layoutGraph.getAllStatesByEvent(event) + ",");
                 }
                 bufferedWriter.close();
@@ -177,12 +207,12 @@ public class ApplicationController implements Initializable {
     }
 
     public void newWindow(String view) throws IOException {
-        createNewWindow = new CreateNewWindow(view);
-        createNewWindow.setStage(new Stage());
-        createNewWindow.setBtnMin(false);
-        createNewWindow.setScene();
-        createNewWindow.setAbstractController(this);
-        createNewWindow.show();
+        createWindowService = new CreateWindowService(view);
+        createWindowService.setStage(new Stage());
+        createWindowService.setBtnMin(false);
+        createWindowService.setScene();
+        createWindowService.setAbstractController(this, layoutGraph);
+        createWindowService.show();
     }
 
     @FXML
@@ -243,18 +273,18 @@ public class ApplicationController implements Initializable {
         newWindow("Operations");
     }
 
-    /*
-        private boolean containsState(State state) {
-            for (State s : layoutGraph.getGraph().getVertices()) {
-                if (s.toString().equals(state.toString())) {
-                    return true;
-                }
+
+    private boolean containsState(State state) {
+        for (State s : layoutGraph.getAllStates()) {
+            if (s.getName().equals(state.getName())) {
+                return true;
             }
-            return false;
         }
-    */
+        return false;
+    }
+
     public boolean addStateGraph(State state) {
-        if (!layoutGraph.getAllStates().contains(state)) {
+        if (!containsState(state)) {
             layoutGraph.addState(state);
             createAndSetSwingContent();
             setXo();

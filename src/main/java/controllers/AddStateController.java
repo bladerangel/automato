@@ -38,8 +38,6 @@ public class AddStateController extends AbstractController implements Initializa
 
     private RequiredFieldValidator requiredFieldValidator;
 
-    private LayoutGraph layoutGraph;
-
     @FXML
     public void save() throws IOException {
         State state = new State(name.getText());
@@ -69,9 +67,8 @@ public class AddStateController extends AbstractController implements Initializa
     }
 
     @Override
-    public void init(ApplicationController applicationController) {
-        super.init(applicationController);
-        layoutGraph = applicationController.getLayoutGraph();
+    public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
+        super.init(applicationController, layoutGraph);
         if (!layoutGraph.getStateStart().getName().equals("")) {
             start.setDisable(true);
         }

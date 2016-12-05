@@ -1,10 +1,13 @@
 package controllers;
 
+import Services.ComboBoxService;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import models.State;
 import views.LayoutGraph;
 
@@ -22,18 +25,19 @@ public class RemoveStateController extends AbstractController implements Initial
     @FXML
     private JFXComboBox<State> states;
 
-    private LayoutGraph layoutGraph;
+    private ComboBoxService comboBoxService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     @Override
-    public void init(ApplicationController applicationController) {
-        super.init(applicationController);
-        layoutGraph = applicationController.getLayoutGraph();
+    public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
+        super.init(applicationController, layoutGraph);
+        comboBoxService = new ComboBoxService();
         states.getItems().addAll(layoutGraph.getAllStates());
+        states.setCellFactory(param -> comboBoxService.newListState());
+        states.setConverter(comboBoxService.newConverterState());
     }
 
     @FXML

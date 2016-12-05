@@ -12,11 +12,6 @@ public class State {
         this.start = false;
     }
 
-    @Override
-    public String toString() {
-
-        return name;
-    }
 
     public void start() {
         this.start = true;
@@ -37,4 +32,5 @@ public class State {
     public String getName() {
         return name;
     }
+
 }

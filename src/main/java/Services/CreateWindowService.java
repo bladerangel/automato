@@ -1,4 +1,4 @@
-package utils;/**
+package Services;/**
  * Created by Rangel on 22/11/2016.
  */
 
@@ -9,10 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import views.LayoutGraph;
 
 import java.io.IOException;
 
-public class CreateNewWindow {
+public class CreateWindowService {
     private FXMLLoader fxmlLoader;
     private Stage stage;
     private Scene scene;
@@ -20,7 +21,7 @@ public class CreateNewWindow {
     private AbstractController abstractController;
     private boolean btnMin;
 
-    public CreateNewWindow(String view) throws IOException {
+    public CreateWindowService(String view) throws IOException {
         fxmlLoader = new FXMLLoader(getClass().getResource("/views/" + view + ".fxml"));
     }
 
@@ -40,9 +41,9 @@ public class CreateNewWindow {
         this.stage.setResizable(false);
     }
 
-    public void setAbstractController(ApplicationController applicationController) {
+    public void setAbstractController(ApplicationController applicationController, LayoutGraph layoutGraph) {
         abstractController = fxmlLoader.getController();
-        abstractController.init(applicationController);
+        abstractController.init(applicationController, layoutGraph);
     }
 
     public void show() {

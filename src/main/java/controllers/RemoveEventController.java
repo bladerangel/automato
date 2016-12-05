@@ -1,5 +1,6 @@
 package controllers;
 
+import Services.ComboBoxService;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,7 +30,7 @@ public class RemoveEventController extends AbstractController implements Initial
     @FXML
     private JFXComboBox<State> states2;
 
-    private LayoutGraph layoutGraph;
+    private ComboBoxService comboBoxService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,10 +38,16 @@ public class RemoveEventController extends AbstractController implements Initial
     }
 
     @Override
-    public void init(ApplicationController applicationController) {
-        super.init(applicationController);
-        layoutGraph = applicationController.getLayoutGraph();
+    public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
+        super.init(applicationController, layoutGraph);
+        comboBoxService = new ComboBoxService();
         states1.getItems().addAll(layoutGraph.getAllStates());
+        states1.setCellFactory(param -> comboBoxService.newListState());
+        states1.setConverter(comboBoxService.newConverterState());
+        states2.setCellFactory(param -> comboBoxService.newListState());
+        states2.setConverter(comboBoxService.newConverterState());
+        events.setCellFactory(param -> comboBoxService.newListEvent());
+        events.setConverter(comboBoxService.newConverterEvent());
 
     }
 

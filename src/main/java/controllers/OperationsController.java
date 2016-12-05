@@ -21,8 +21,6 @@ public class OperationsController extends AbstractController implements Initiali
 
     private SwingNode swingNode;
 
-    private LayoutGraph layoutGraph;
-
     public boolean containsEventsIn(State state) {
         for (Event event : layoutGraph.getAllEventByStateIn(state)) {
             if (layoutGraph.getStateSource(event) != state)
@@ -72,9 +70,9 @@ public class OperationsController extends AbstractController implements Initiali
     }
 
     @Override
-    public void init(ApplicationController applicationController) {
-        super.init(applicationController);
-        layoutGraph = LayoutGraph.cloneGraph(applicationController.getLayoutGraph());
+    public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
+        super.init(applicationController, layoutGraph);
+        // layoutGraph = LayoutGraph.cloneGraph(layoutGraph);
         swingNode = new SwingNode();
         pane.getChildren().add(swingNode);
         createAndSetSwingContent();

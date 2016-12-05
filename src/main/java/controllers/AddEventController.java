@@ -1,8 +1,10 @@
 package controllers;
 
+import Services.ComboBoxService;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
+import com.jfoenix.validation.base.ValidatorBase;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -10,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Event;
 import models.State;
+import views.LayoutGraph;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,22 +34,34 @@ public class AddEventController extends AbstractController implements Initializa
     @FXML
     private JFXComboBox<State> states2;
 
-    RequiredFieldValidator requiredFieldValidator;
+    private ValidatorEvent validator;
+
+    private RequiredFieldValidator requiredFieldValidator;
+
+    private ComboBoxService comboBoxService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        validator = new ValidatorEvent();
         requiredFieldValidator = new RequiredFieldValidator();
+        validator.setIcon(new ImageView("assets/images/alert.png"));
         requiredFieldValidator.setIcon(new ImageView("assets/images/alert.png"));
         requiredFieldValidator.setMessage("Empty");
+        validator.setMessage("Choose another name!");
         name.getValidators().add(requiredFieldValidator);
+        name.getValidators().add(validator);
     }
 
     @Override
-    public void init(ApplicationController applicationController) {
-        super.init(applicationController);
-        states1.getItems().addAll(applicationController.getLayoutGraph().getAllStates());
-        states2.getItems().addAll(applicationController.getLayoutGraph().getAllStates());
+    public void init(ApplicationController applicationController, LayoutGraph graph) {
+        super.init(applicationController, graph);
+        comboBoxService = new ComboBoxService();
+        states1.getItems().addAll(layoutGraph.getAllStates());
+        states2.getItems().addAll(layoutGraph.getAllStates());
+        states1.setCellFactory(param -> comboBoxService.newListState());
+        states1.setConverter(comboBoxService.newConverterState());
+        states2.setCellFactory(param -> comboBoxService.newListState());
+        states2.setConverter(comboBoxService.newConverterState());
     }
 
     @FXML
@@ -66,5 +81,20 @@ public class AddEventController extends AbstractController implements Initializa
         }
     }
 
+    private class ValidatorEvent extends ValidatorBase {
 
+        @Override
+        protected void eval() {
+            State state1 = states1.getSelectionModel().getSelectedItem();
+            State state2 = states2.getSelectionModel().getSelectedItem();
+            if (state1 != null && state2 != null) {
+                Event event = layoutGraph.findEvent(state1, state2);
+                if (event != null && event.getLinkName().equals(name.getText())) {
+                    hasErrors.set(true);
+                } else {
+                    hasErrors.set(false);
+                }
+            }
+        }
+    }
 }

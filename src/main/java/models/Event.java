@@ -20,12 +20,8 @@ public class Event {
         return stateFinal;
     }
 
-    @Override
-    public String toString() {
 
+    public String getLinkName() {
         return linkName;
     }
-
-
-
 }

@@ -2,15 +2,13 @@ package init;/**
  * Created by Rangel on 20/11/2016.
  */
 
-import com.jfoenix.controls.JFXDecorator;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utils.CreateNewWindow;
+import Services.CreateWindowService;
 
 public class ApplicationInit extends Application {
+
+    private CreateWindowService createWindowService;
 
     public static void main(String[] args) {
         launch(args);
@@ -18,10 +16,10 @@ public class ApplicationInit extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        CreateNewWindow createNewWindow = new CreateNewWindow("ApplicationView");
-        createNewWindow.setStage(primaryStage);
-        createNewWindow.setBtnMin(true);
-        createNewWindow.setScene();
-        createNewWindow.show();
+        createWindowService = new CreateWindowService("ApplicationView");
+        createWindowService.setStage(primaryStage);
+        createWindowService.setBtnMin(true);
+        createWindowService.setScene();
+        createWindowService.show();
     }
 }

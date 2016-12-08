@@ -4,6 +4,7 @@ import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
+import models.Event;
 import models.State;
 import views.LayoutGraph;
 
@@ -24,6 +25,12 @@ public class OperationsController extends AbstractController implements Initiali
 
     private LayoutGraph cloneLayoutGraph;
 
+    private Collection<State> statesAccessible;
+
+    private Collection<State> statesCoaccessible;
+
+    private Collection<State> statesTrim;
+
     public void foundSuccessors(Collection<State> states, State state) {
         if (cloneLayoutGraph.getStatesSuccessors(state) != null) {
             cloneLayoutGraph.getStatesSuccessors(state).forEach(stateSuccessors -> {
@@ -35,11 +42,26 @@ public class OperationsController extends AbstractController implements Initiali
         }
     }
 
+    public void foundPredecessors(Collection<State> states, State state) {
+        if (cloneLayoutGraph.getStatesPredecessors(state) != null) {
+            cloneLayoutGraph.getStatesPredecessors(state).forEach(statePredecessors -> {
+                if (!states.contains(statePredecessors)) {
+                    states.add(statePredecessors);
+                    foundPredecessors(states, statePredecessors);
+                }
+            });
+        }
+    }
+
+    public void foundTrim(Collection<State> statesTrim, Collection<State> statesAccessible, Collection<State> statesCoaccessible) {
+        LayoutGraph.cloneGraph(cloneLayoutGraph).getAllStates().stream().filter(state -> (statesAccessible.contains(state) && statesCoaccessible.contains(state))).forEach(state -> {
+            statesTrim.add(state);
+        });
+    }
+
     @FXML
     void accessible() {
-        Collection<State> states = new ArrayList<>();
-        foundSuccessors(states, cloneLayoutGraph.getStateStart());
-        LayoutGraph.cloneGraph(cloneLayoutGraph).getAllStates().stream().filter(state -> !states.contains(state) && !state.isStart()).forEach(state -> {
+        LayoutGraph.cloneGraph(cloneLayoutGraph).getAllStates().stream().filter(state -> !statesAccessible.contains(state) && !state.isStart()).forEach(state -> {
             cloneLayoutGraph.removeState(state);
         });
         createAndSetSwingContent();
@@ -47,17 +69,33 @@ public class OperationsController extends AbstractController implements Initiali
 
     @FXML
     void coaccessible() {
-
+        LayoutGraph.cloneGraph(cloneLayoutGraph).getAllStates().stream().filter(state -> !statesCoaccessible.contains(state)).forEach(state -> {
+            cloneLayoutGraph.removeState(state);
+        });
+        createAndSetSwingContent();
     }
 
     @FXML
     void trim() {
-
+        LayoutGraph.cloneGraph(cloneLayoutGraph).getAllStates().stream().filter(state -> !statesTrim.contains(state)).forEach(state -> {
+            cloneLayoutGraph.removeState(state);
+        });
+        createAndSetSwingContent();
     }
 
     @FXML
     void complement() {
-
+        LayoutGraph.cloneGraph(cloneLayoutGraph).getAllStates().stream().filter(state -> !statesTrim.contains(state)).forEach(state -> {
+            cloneLayoutGraph.removeState(state);
+        });
+        State state = new State("d");
+        cloneLayoutGraph.addState(state);
+        cloneLayoutGraph.getAllStates().forEach(state1 -> {
+            state1.setMarked(!state1.isMarked());
+            Event event = new Event(state1.getName() + "-" + state.getName(), state1, state);
+            cloneLayoutGraph.addEvent(event, state1, state);
+        });
+        createAndSetSwingContent();
     }
 
     @FXML
@@ -73,13 +111,22 @@ public class OperationsController extends AbstractController implements Initiali
     public void createAndSetSwingContent() {
         //SwingUtilities.invokeLater(() -> {
         swingNode.setContent(cloneLayoutGraph.changeBasicVisualizationServer());
+        cloneLayoutGraph = LayoutGraph.cloneGraph(layoutGraph);
         //});
     }
 
     @Override
     public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
         super.init(applicationController, layoutGraph);
+        statesAccessible = new ArrayList<>();
+        statesCoaccessible = new ArrayList<>();
+        statesTrim = new ArrayList<>();
         cloneLayoutGraph = LayoutGraph.cloneGraph(layoutGraph);
+        foundSuccessors(statesAccessible, cloneLayoutGraph.getStateStart());
+        cloneLayoutGraph.getAllStatesMarked().forEach(state -> {
+            foundPredecessors(statesCoaccessible, state);
+        });
+        foundTrim(statesTrim, statesAccessible, statesCoaccessible);
         swingNode = new SwingNode();
         pane.getChildren().add(swingNode);
         createAndSetSwingContent();

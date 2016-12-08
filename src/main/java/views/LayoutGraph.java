@@ -148,7 +148,7 @@ public class LayoutGraph {
         return null;
     }
 
-    public Collection<State> getStatesPredecessor(State state) {
+    public Collection<State> getStatesPredecessors(State state) {
         return graph.getPredecessors(state);
     }
 

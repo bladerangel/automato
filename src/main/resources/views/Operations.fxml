@@ -28,7 +28,7 @@
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/images/add.png" />
+                        <Image url="@../assets/images/accessible.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -43,7 +43,7 @@
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/images/remove.png" />
+                        <Image url="@../assets/images/coaccessible.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -55,7 +55,7 @@
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/images/add.png" />
+                        <Image url="@../assets/images/trim.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -67,7 +67,7 @@
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/images/remove.png" />
+                        <Image url="@../assets/images/complement.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -75,11 +75,11 @@
                   <Insets bottom="15.0" top="15.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#testCase" prefWidth="150.0" text="Test Case">
+            <JFXButton buttonType="RAISED" onAction="#testCase" prefWidth="150.0" text="Original">
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/images/test.png" />
+                        <Image url="@../assets/images/original.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -100,7 +100,7 @@ public class OperationsController extends AbstractController implements Initiali
 
     @FXML
     void testCase() {
-
+        createAndSetSwingContent();
     }
 
     @Override

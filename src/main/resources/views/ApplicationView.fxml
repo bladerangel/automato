@@ -124,11 +124,11 @@
                   <Insets bottom="15.0" top="15.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#testCase" prefWidth="150.0" text="Test Case">
+            <JFXButton buttonType="RAISED" onAction="#testCase" prefWidth="150.0" text="Operations">
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/images/test.png" />
+                        <Image url="@../assets/images/operations.png" />
                      </image>
                   </ImageView>
                </graphic>

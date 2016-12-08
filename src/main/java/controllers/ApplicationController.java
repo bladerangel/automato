@@ -143,7 +143,18 @@ public class ApplicationController implements Initializable {
 
                 String states[] = line.split(",");
                 for (String stateName : states) {
-                    State state = new State(stateName);
+                    String attributes[] = stateName.split("!");
+                    State state = new State(attributes[0]);
+                    if (attributes.length > 1) {
+                        if (attributes[1].equals("start")) {
+                            state.setStart(true);
+                        } else if (attributes[1].equals("marked")) {
+                            state.setMarked(true);
+                        }
+
+                    }
+                    if (attributes.length > 2 && attributes[2].equals("marked"))
+                        state.setMarked(true);
                     addStateGraph(state);
 
                 }
@@ -182,7 +193,14 @@ public class ApplicationController implements Initializable {
                 FileWriter file = new FileWriter(save);
                 BufferedWriter bufferedWriter = new BufferedWriter(file);
                 for (State state : layoutGraph.getAllStates()) {
-                    bufferedWriter.write(state.getName() + ",");
+                    bufferedWriter.write(state.getName());
+                    if (state.isStart()) {
+                        bufferedWriter.write("!start");
+                    }
+                    if (state.isMarked()) {
+                        bufferedWriter.write("!marked");
+                    }
+                    bufferedWriter.write(",");
                 }
 
                 bufferedWriter.newLine();

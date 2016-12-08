@@ -76,7 +76,7 @@
                   <Insets bottom="15.0" top="15.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#testCase" prefWidth="150.0" text="Original">
+            <JFXButton buttonType="RAISED" onAction="#original" prefWidth="150.0" text="Original">
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>

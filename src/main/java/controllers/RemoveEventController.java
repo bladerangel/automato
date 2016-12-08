@@ -52,25 +52,26 @@ public class RemoveEventController extends AbstractController implements Initial
     }
 
     @FXML
-    void changeEvent() {
+    public void changeEvent() {
         Event event = events.getSelectionModel().getSelectedItem();
-        //State state1 = states1.getSelectionModel().getSelectedItem();
         states2.getSelectionModel().select(layoutGraph.getStateDest(event));
     }
 
 
     @FXML
-    void changeState1() {
+    public void changeState1() {
         states2.getItems().clear();
         events.getItems().clear();
         State state1 = states1.getSelectionModel().getSelectedItem();
-        layoutGraph.getAllEventByStateOut(state1).forEach(event -> {
-            events.getItems().add(event);
-            State state2 = layoutGraph.getStateDest(event);
-            if (!states2.getItems().contains(state2)) {
-                states2.getItems().add(state2);
-            }
-        });
+        layoutGraph
+                .getAllEventByStateOut(state1)
+                .forEach(event -> {
+                    events.getItems().add(event);
+                    State state2 = layoutGraph.getStateDest(event);
+                    if (!states2.getItems().contains(state2)) {
+                        states2.getItems().add(state2);
+                    }
+                });
 
         states2.getSelectionModel().selectFirst();
         State state2 = states2.getSelectionModel().getSelectedItem();
@@ -78,14 +79,14 @@ public class RemoveEventController extends AbstractController implements Initial
     }
 
     @FXML
-    void changeState2() {
+    public void changeState2() {
         State state1 = states1.getSelectionModel().getSelectedItem();
         State state2 = states2.getSelectionModel().getSelectedItem();
         events.getSelectionModel().select(layoutGraph.findEvent(state1, state2));
     }
 
     @FXML
-    void remove() {
+    public void remove() {
         Event event = events.getSelectionModel().getSelectedItem();
         if (applicationController.removeEventGraph(event)) {
             Stage stage = (Stage) pane.getScene().getWindow();

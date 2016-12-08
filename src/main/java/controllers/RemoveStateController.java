@@ -39,7 +39,7 @@ public class RemoveStateController extends AbstractController implements Initial
     }
 
     @FXML
-    void remove() {
+    public void remove() {
         State state = states.getSelectionModel().getSelectedItem();
         if (applicationController.removeStateGraph(state)) {
             Stage stage = (Stage) pane.getScene().getWindow();

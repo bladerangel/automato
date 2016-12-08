@@ -127,6 +127,50 @@ public class ApplicationController implements Initializable {
     }
 
     @FXML
+    public void testCase() {
+        layoutGraph.removeAllGraph();
+        State state0 = new State("0");
+        state0.setStart(true);
+        State state1 = new State("1");
+        State state2 = new State("2");
+        state2.setMarked(true);
+        State state3 = new State("3");
+        State state4 = new State("4");
+        State state5 = new State("5");
+        State state6 = new State("6");
+        layoutGraph.addState(state0);
+        layoutGraph.addState(state1);
+        layoutGraph.addState(state2);
+        layoutGraph.addState(state3);
+        layoutGraph.addState(state4);
+        layoutGraph.addState(state5);
+        layoutGraph.addState(state6);
+
+        layoutGraph.addEvent(new Event("g", state1, state5), state1, state5);
+        layoutGraph.addEvent(new Event("a", state6, state3), state6, state3);
+        layoutGraph.addEvent(new Event("g", state2, state0), state2, state0);
+        layoutGraph.addEvent(new Event("a", state1, state3), state1, state3);
+        layoutGraph.addEvent(new Event("b", state3, state4), state3, state4);
+        layoutGraph.addEvent(new Event("a", state0, state1), state0, state1);
+        layoutGraph.addEvent(new Event("b", state1, state2), state1, state2);
+        layoutGraph.addEvent(new Event("b", state6, state2), state6, state2);
+        layoutGraph.addEvent(new Event("a", state4, state3), state4, state3);
+
+        setXo();
+        setX();
+        setXm();
+        setE();
+        createAndSetSwingContent();
+    }
+
+    @FXML
+    public void about() {
+        alertMessage("Este programa é destinada a manipulação de automatos.\n"
+                + "Foi desenvolvido por Pedro Rangel.\n"
+                + "Na disciplina de Sistemas Embarcados 2.");
+    }
+
+    @FXML
     public void importFile() {
         try {
             FileChooser fileChooser = new FileChooser();
@@ -206,7 +250,13 @@ public class ApplicationController implements Initializable {
                 bufferedWriter.newLine();
                 for (Event event : layoutGraph.getAllEvents()) {
                     bufferedWriter.write(event.getLinkName() + " ");
-                    bufferedWriter.write(layoutGraph.getAllStatesByEvent(event).stream().map(State::getName).collect(Collectors.toList()) + ",");
+                    bufferedWriter
+                            .write(layoutGraph
+                                    .getAllStatesByEvent(event)
+                                    .stream()
+                                    .map(State::getName)
+                                    .collect(Collectors.toList())
+                                    + ",");
                 }
                 bufferedWriter.close();
                 file.close();
@@ -240,55 +290,27 @@ public class ApplicationController implements Initializable {
     }
 
     @FXML
-    void addEvent() throws IOException {
+    public void addEvent() throws IOException {
         newWindow("AddEvent");
     }
 
-
     @FXML
-    void removeState() throws IOException {
+    public void removeState() throws IOException {
         newWindow("RemoveState");
     }
 
     @FXML
-    void removeEvent() throws IOException {
+    public void removeEvent() throws IOException {
         newWindow("RemoveEvent");
     }
 
     @FXML
-    void table() throws IOException {
+    public void table() throws IOException {
         newWindow("TableView");
     }
 
     @FXML
-    void testCase() throws IOException {
-        /*
-        removeAllGraph();
-
-        List<State> listStates = new ArrayList<>();
-        listStates.add(new State("A"));
-        listStates.add(new State("B"));
-        listStates.add(new State("C"));
-        listStates.add(new State("D"));
-        listStates.add(new State("E"));
-        listStates.add(new State("F"));
-        listStates.add(new State("G"));
-        listStates.add(new State("H"));
-        listStates.add(new State("I"));
-
-        listStates.forEach(this::addStateGraph);
-
-        addEventGraph(new Event("A-B"), findStateByName("A"), findStateByName("B"));
-        addEventGraph(new Event("A-C"), findStateByName("A"), findStateByName("C"));
-        addEventGraph(new Event("A-D"), findStateByName("A"), findStateByName("D"));
-        addEventGraph(new Event("A-E"), findStateByName("A"), findStateByName("E"));
-        addEventGraph(new Event("B-F"), findStateByName("B"), findStateByName("F"));
-        addEventGraph(new Event("F-H"), findStateByName("F"), findStateByName("H"));
-        addEventGraph(new Event("D-G"), findStateByName("D"), findStateByName("G"));
-        addEventGraph(new Event("G-I"), findStateByName("G"), findStateByName("I"));
-
-        createAndSetSwingContent();
-    */
+    public void operations() throws IOException {
         newWindow("Operations");
     }
 

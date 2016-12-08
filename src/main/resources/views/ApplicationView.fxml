@@ -41,6 +41,16 @@
                      </graphic>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#testCase" text="Test Case">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/images/testCase.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#importFile" text="Import">
                      <graphic>
                         <ImageView pickOnBounds="true" preserveRatio="true">
@@ -64,7 +74,14 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#about" text="About">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/images/about.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
             </items>
           </Menu>
         </menus>
@@ -124,7 +141,7 @@
                   <Insets bottom="15.0" top="15.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#testCase" prefWidth="150.0" text="Operations">
+            <JFXButton buttonType="RAISED" onAction="#operations" prefWidth="150.0" text="Operations">
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>

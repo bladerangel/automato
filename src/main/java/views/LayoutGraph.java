@@ -73,11 +73,12 @@ public class LayoutGraph {
 
     public Collection<Event> findEventsByName(String eventName) {
         Collection<Event> events = new ArrayList<>();
-        for (Event event : getAllEvents()) {
-            if (event.getLinkName().equals(eventName)) {
-                events.add(event);
-            }
-        }
+        getAllEvents()
+                .forEach(event -> {
+                    if (event.getLinkName().equals(eventName)) {
+                        events.add(event);
+                    }
+                });
         return events;
     }
 
@@ -125,10 +126,13 @@ public class LayoutGraph {
 
     public static LayoutGraph cloneGraph(LayoutGraph layoutGraph) {
         LayoutGraph cloneLayoutGraph = new LayoutGraph();
-        layoutGraph.getAllStates().forEach(state -> cloneLayoutGraph.addState(state));
-        layoutGraph.getAllEvents().forEach(event -> {
-            cloneLayoutGraph.addEvent(event, event.getStateInit(), event.getStateFinal());
-        });
+        layoutGraph
+                .getAllStates()
+                .forEach(state -> cloneLayoutGraph.addState(state));
+        layoutGraph
+                .getAllEvents()
+                .forEach(event -> cloneLayoutGraph.addEvent(event, event.getStateInit(), event.getStateFinal()));
+
         return cloneLayoutGraph;
     }
 

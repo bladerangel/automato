@@ -70,7 +70,7 @@ public class AddEventController extends AbstractController implements Initializa
     }
 
     @FXML
-    void save() {
+    public void save() {
 
         State state1 = states1.getSelectionModel().getSelectedItem();
         State state2 = states2.getSelectionModel().getSelectedItem();
@@ -82,7 +82,7 @@ public class AddEventController extends AbstractController implements Initializa
     }
 
     @FXML
-    void changeState1() {
+    public void changeState1() {
         name.validate();
     }
 

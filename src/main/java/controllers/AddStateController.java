@@ -47,7 +47,6 @@ public class AddStateController extends AbstractController implements Initializa
             }
             if (start.isSelected()) {
                 state.setStart(true);
-                state.setAccessible(true);
             }
             Stage stage = (Stage) pane.getScene().getWindow();
             stage.close();

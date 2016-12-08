@@ -4,9 +4,12 @@ import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
+import models.State;
 import views.LayoutGraph;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 /**
@@ -21,18 +24,23 @@ public class OperationsController extends AbstractController implements Initiali
 
     private LayoutGraph cloneLayoutGraph;
 
+    public void foundSuccessors(Collection<State> states, State state) {
+        if (cloneLayoutGraph.getStatesSuccessors(state) != null) {
+            cloneLayoutGraph.getStatesSuccessors(state).forEach(stateSuccessors -> {
+                if (!states.contains(stateSuccessors)) {
+                    states.add(stateSuccessors);
+                    foundSuccessors(states, stateSuccessors);
+                }
+            });
+        }
+    }
+
     @FXML
     void accessible() {
-        LayoutGraph.cloneGraph(layoutGraph).getAllStates().forEach(state -> {
-            if (state.isAccessible()) {
-                LayoutGraph.cloneGraph(layoutGraph).getStatesPredecessor(state).forEach(statePre -> {
-                    if (!statePre.isAccessible()) {
-                        cloneLayoutGraph.removeState(statePre);
-                    }
-                });
-            } else {
-                cloneLayoutGraph.removeState(state);
-            }
+        Collection<State> states = new ArrayList<>();
+        foundSuccessors(states, cloneLayoutGraph.getStateStart());
+        LayoutGraph.cloneGraph(cloneLayoutGraph).getAllStates().stream().filter(state -> !states.contains(state) && !state.isStart()).forEach(state -> {
+            cloneLayoutGraph.removeState(state);
         });
         createAndSetSwingContent();
     }

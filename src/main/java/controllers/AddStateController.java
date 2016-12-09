@@ -38,22 +38,6 @@ public class AddStateController extends AbstractController implements Initializa
 
     private RequiredFieldValidator requiredFieldValidator;
 
-    @FXML
-    public void save() throws IOException {
-        State state = new State(name.getText());
-        if (name.validate() && applicationController.addStateGraph(state)) {
-            if (marked.isSelected()) {
-                state.setMarked(true);
-            }
-            if (start.isSelected()) {
-                state.setStart(true);
-            }
-            Stage stage = (Stage) pane.getScene().getWindow();
-            stage.close();
-        }
-    }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         validator = new ValidatorState();
@@ -73,6 +57,22 @@ public class AddStateController extends AbstractController implements Initializa
             start.setDisable(true);
         }
     }
+
+    @FXML
+    public void save() throws IOException {
+        State state = new State(name.getText());
+        if (name.validate() && applicationController.addStateGraph(state)) {
+            if (marked.isSelected()) {
+                state.setMarked(true);
+            }
+            if (start.isSelected()) {
+                state.setStart(true);
+            }
+            Stage stage = (Stage) pane.getScene().getWindow();
+            stage.close();
+        }
+    }
+
 
     @FXML
     public void validate() {

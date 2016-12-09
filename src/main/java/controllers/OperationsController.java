@@ -31,53 +31,27 @@ public class OperationsController extends AbstractController implements Initiali
 
     private Collection<State> statesTrim;
 
-    public void foundSuccessors(State state) {
-        if (cloneLayoutGraph.getStatesSuccessors(state) != null) {
-            cloneLayoutGraph
-                    .getStatesSuccessors(state)
-                    .forEach(stateSuccessors -> {
-                        if (!statesAccessible.contains(stateSuccessors)) {
-                            statesAccessible.add(stateSuccessors);
-                            foundSuccessors(stateSuccessors);
-                        }
-                    });
-        }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 
-    public void foundPredecessors(State state) {
-        if (cloneLayoutGraph.getStatesPredecessors(state) != null) {
-            cloneLayoutGraph
-                    .getStatesPredecessors(state)
-                    .forEach(statePredecessors -> {
-                        if (!statesCoaccessible.contains(statePredecessors)) {
-                            statesCoaccessible.add(statePredecessors);
-                            foundPredecessors(statePredecessors);
-                        }
-                    });
-        }
-    }
+    @Override
+    public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
+        super.init(applicationController, layoutGraph);
+        statesAccessible = new ArrayList<>();
+        statesCoaccessible = new ArrayList<>();
+        statesTrim = new ArrayList<>();
+        cloneLayoutGraph = LayoutGraph.cloneGraph(layoutGraph);
 
-    public void setStatesAccessible() {
-        if (!statesAccessible.contains(cloneLayoutGraph.getStateStart()))
-            statesAccessible.add(cloneLayoutGraph.getStateStart());
-    }
-
-    public void setStatesCoaccessible() {
+        foundSuccessors(cloneLayoutGraph.getStateStart());
         cloneLayoutGraph
                 .getAllStatesMarked()
-                .forEach(state -> {
-                    if (!statesCoaccessible.contains(state)) {
-                        statesCoaccessible.add(state);
-                    }
-                });
-    }
-
-    public void foundAndSetTrim() {
-        cloneLayoutGraph
-                .getAllStates()
-                .stream()
-                .filter(state -> (statesAccessible.contains(state) && statesCoaccessible.contains(state)))
-                .forEach(state -> statesTrim.add(state));
+                .forEach(state -> foundPredecessors(state));
+        foundTrim();
+        swingNode = new SwingNode();
+        pane.getChildren().add(swingNode);
+        createAndSetSwingContent();
     }
 
     @FXML
@@ -144,37 +118,36 @@ public class OperationsController extends AbstractController implements Initiali
         createAndSetSwingContent();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
     public void createAndSetSwingContent() {
 
         swingNode.setContent(cloneLayoutGraph.changeBasicVisualizationServer());
         cloneLayoutGraph = LayoutGraph.cloneGraph(layoutGraph);
     }
 
-    @Override
-    public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
-        super.init(applicationController, layoutGraph);
-        statesAccessible = new ArrayList<>();
-        statesCoaccessible = new ArrayList<>();
-        statesTrim = new ArrayList<>();
-        cloneLayoutGraph = LayoutGraph.cloneGraph(layoutGraph);
+    public void foundSuccessors(State state) {
+        if (!statesAccessible.contains(state) && cloneLayoutGraph.getStatesSuccessors(state) != null) {
+            statesAccessible.add(state);
+            cloneLayoutGraph
+                    .getStatesSuccessors(state)
+                    .forEach(stateSuccessors -> foundSuccessors(stateSuccessors));
+        }
+    }
 
-        foundSuccessors(cloneLayoutGraph.getStateStart());
-        setStatesAccessible();
+    public void foundPredecessors(State state) {
+        if (!statesCoaccessible.contains(state) && cloneLayoutGraph.getStatesPredecessors(state) != null) {
+            statesCoaccessible.add(state);
+            cloneLayoutGraph
+                    .getStatesPredecessors(state)
+                    .forEach(statePredecessors -> foundPredecessors(statePredecessors));
+        }
+    }
 
+    public void foundTrim() {
         cloneLayoutGraph
-                .getAllStatesMarked()
-                .forEach(state -> foundPredecessors(state));
-        setStatesCoaccessible();
-
-        foundAndSetTrim();
-        swingNode = new SwingNode();
-        pane.getChildren().add(swingNode);
-        createAndSetSwingContent();
+                .getAllStates()
+                .stream()
+                .filter(state -> (statesAccessible.contains(state) && statesCoaccessible.contains(state)))
+                .forEach(state -> statesTrim.add(state));
     }
 
 }

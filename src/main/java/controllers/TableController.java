@@ -34,12 +34,6 @@ public class TableController extends AbstractController implements Initializable
 
     }
 
-    private <T> TableColumn<T, ?> getTableColumnByName(TableView<T> tableView, String name) {
-        for (TableColumn<T, ?> col : tableView.getColumns())
-            if (col.getText().equals(name)) return col;
-        return null;
-    }
-
     @Override
     public void init(ApplicationController applicationController, LayoutGraph layoutGraph) {
         super.init(applicationController, layoutGraph);
@@ -73,6 +67,11 @@ public class TableController extends AbstractController implements Initializable
         table.setItems(getStates());
     }
 
+    private <T> TableColumn<T, ?> getTableColumnByName(TableView<T> tableView, String name) {
+        for (TableColumn<T, ?> col : tableView.getColumns())
+            if (col.getText().equals(name)) return col;
+        return null;
+    }
 
     public ObservableList<State> getStates() {
         states = FXCollections.observableArrayList();

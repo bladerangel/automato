@@ -30,12 +30,6 @@ public class ApplicationController implements Initializable {
     @FXML
     private Pane pane;
 
-    private SwingNode swingNode;
-
-    private LayoutGraph layoutGraph;
-
-    private CreateWindowService createWindowService;
-
     @FXML
     private Label xo;
 
@@ -48,6 +42,12 @@ public class ApplicationController implements Initializable {
     @FXML
     private Label xm;
 
+    private SwingNode swingNode;
+
+    private LayoutGraph layoutGraph;
+
+    private CreateWindowService createWindowService;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -56,64 +56,34 @@ public class ApplicationController implements Initializable {
         pane.getChildren().add(swingNode);
     }
 
-    public void createAndSetSwingContent() {
-        //SwingUtilities.invokeLater(() -> {
-        swingNode.setContent(layoutGraph.changeBasicVisualizationServer());
-        //});
+    @FXML
+    public void addState() throws IOException {
+        newWindow("AddState");
     }
 
-    public void append(Label label, String text) {
-        label.setText(label.getText() + text);
+    @FXML
+    public void addEvent() throws IOException {
+        newWindow("AddEvent");
     }
 
-    public void clean(Label label) {
-        label.setText("");
+    @FXML
+    public void removeState() throws IOException {
+        newWindow("RemoveState");
     }
 
-    public void cleanFinal(Label label) {
-        label.setText(label.getText().substring(0, label.getText().lastIndexOf(",")));
+    @FXML
+    public void removeEvent() throws IOException {
+        newWindow("RemoveEvent");
     }
 
-    public void setXo() {
-        clean(xo);
-        append(xo, "Xo=" + layoutGraph.getStateStart().getName());
+    @FXML
+    public void table() throws IOException {
+        newWindow("TableView");
     }
 
-    public void setX() {
-        clean(x);
-        append(x, "X={");
-        if (!layoutGraph.getAllStates().isEmpty()) {
-            layoutGraph.getAllStates().forEach(state -> {
-                append(x, state.getName() + ",");
-            });
-            cleanFinal(x);
-        }
-        append(x, "}");
-    }
-
-    public void setE() {
-        clean(e);
-        append(e, "E={");
-        if (!layoutGraph.getAllEvents().isEmpty()) {
-            layoutGraph.getAllEvents().forEach(event -> {
-                append(e, event.getLinkName() + ",");
-            });
-            cleanFinal(e);
-        }
-        append(e, "}");
-    }
-
-    public void setXm() {
-        clean(xm);
-        append(xm, "Xm={");
-        if (!layoutGraph.getAllStatesMarked().isEmpty()) {
-            layoutGraph.getAllStatesMarked().forEach(state -> {
-                append(xm, state.getName() + ",");
-            });
-            if (!layoutGraph.getAllStatesMarked().isEmpty())
-                cleanFinal(xm);
-        }
-        append(xm, "}");
+    @FXML
+    public void operations() throws IOException {
+        newWindow("Operations");
     }
 
     @FXML
@@ -161,13 +131,6 @@ public class ApplicationController implements Initializable {
         setXm();
         setE();
         createAndSetSwingContent();
-    }
-
-    @FXML
-    public void about() {
-        alertMessage("Este programa é destinada a manipulação de automatos.\n"
-                + "Foi desenvolvido por Pedro Rangel.\n"
-                + "Na disciplina de Sistemas Embarcados 2.");
     }
 
     @FXML
@@ -268,6 +231,74 @@ public class ApplicationController implements Initializable {
 
     }
 
+    @FXML
+    public void about() {
+        alertMessage("Este programa é destinada a manipulação de automatos.\n"
+                + "Foi desenvolvido por Pedro Rangel.\n"
+                + "Na disciplina de Sistemas Embarcados 2.");
+    }
+
+    public void createAndSetSwingContent() {
+        swingNode.setContent(layoutGraph.changeBasicVisualizationServer());
+    }
+
+    public void append(Label label, String text) {
+        label.setText(label.getText() + text);
+    }
+
+    public void clean(Label label) {
+        label.setText("");
+    }
+
+    public void cleanFinal(Label label) {
+        label.setText(label.getText().substring(0, label.getText().lastIndexOf(",")));
+    }
+
+    public void setXo() {
+        clean(xo);
+        append(xo, "Xo=" + layoutGraph.getStateStart().getName());
+    }
+
+    public void setX() {
+        clean(x);
+        append(x, "X={");
+        if (!layoutGraph.getAllStates().isEmpty()) {
+            layoutGraph
+                    .getAllStates()
+                    .forEach(state -> append(x, state.getName() + ","));
+            cleanFinal(x);
+        }
+        append(x, "}");
+    }
+
+    public void setE() {
+        clean(e);
+        append(e, "E={");
+        if (!layoutGraph.getAllEvents().isEmpty()) {
+            layoutGraph
+                    .getAllEvents()
+                    .stream()
+                    .map(Event::getLinkName)
+                    .distinct()
+                    .forEach(eventName -> append(e, eventName + ","));
+            cleanFinal(e);
+        }
+        append(e, "}");
+    }
+
+    public void setXm() {
+        clean(xm);
+        append(xm, "Xm={");
+        if (!layoutGraph.getAllStatesMarked().isEmpty()) {
+            layoutGraph
+                    .getAllStatesMarked()
+                    .forEach(state -> append(xm, state.getName() + ","));
+            if (!layoutGraph.getAllStatesMarked().isEmpty())
+                cleanFinal(xm);
+        }
+        append(xm, "}");
+    }
+
     public void alertMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
@@ -282,36 +313,6 @@ public class ApplicationController implements Initializable {
         createWindowService.setScene();
         createWindowService.setAbstractController(this, layoutGraph);
         createWindowService.show();
-    }
-
-    @FXML
-    public void addState() throws IOException {
-        newWindow("AddState");
-    }
-
-    @FXML
-    public void addEvent() throws IOException {
-        newWindow("AddEvent");
-    }
-
-    @FXML
-    public void removeState() throws IOException {
-        newWindow("RemoveState");
-    }
-
-    @FXML
-    public void removeEvent() throws IOException {
-        newWindow("RemoveEvent");
-    }
-
-    @FXML
-    public void table() throws IOException {
-        newWindow("TableView");
-    }
-
-    @FXML
-    public void operations() throws IOException {
-        newWindow("Operations");
     }
 
 

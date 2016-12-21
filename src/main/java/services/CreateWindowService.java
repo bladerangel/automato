@@ -46,6 +46,11 @@ public class CreateWindowService {
         abstractController.init(applicationController, layoutGraph);
     }
 
+    public void setAbstractController(ApplicationController applicationController, LayoutGraph layoutGraph1, LayoutGraph layoutGraph2) {
+        abstractController = fxmlLoader.getController();
+        abstractController.init(applicationController, layoutGraph1, layoutGraph2);
+    }
+
     public void show() {
         if (!btnMin) {
             decorator.setOnCloseButtonAction(() -> this.stage.close());

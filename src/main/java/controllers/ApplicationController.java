@@ -1,15 +1,17 @@
 package controllers;
 
 
+import com.jfoenix.controls.JFXDialog;
 import javafx.embed.swing.SwingNode;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 
-import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Event;
@@ -28,23 +30,53 @@ import java.util.stream.Collectors;
 public class ApplicationController implements Initializable {
 
     @FXML
-    private Pane pane;
+    private BorderPane border;
 
     @FXML
-    private Label xo;
+    private Pane pane1;
 
     @FXML
-    private Label x;
+    private Pane pane2;
 
     @FXML
-    private Label e;
+    private Label xo1;
 
     @FXML
-    private Label xm;
+    private Label x1;
 
-    private SwingNode swingNode;
+    @FXML
+    private Label e1;
+
+    @FXML
+    private Label xm1;
+
+    @FXML
+    private Label xo2;
+
+    @FXML
+    private Label x2;
+
+    @FXML
+    private Label e2;
+
+    @FXML
+    private Label xm2;
+
+    @FXML
+    private RadioButton active1;
+
+    @FXML
+    private RadioButton active2;
+
+    private SwingNode swingNode1;
+
+    private SwingNode swingNode2;
 
     private LayoutGraph layoutGraph;
+
+    private LayoutGraph layoutGraph1;
+
+    private LayoutGraph layoutGraph2;
 
     private CreateWindowService createWindowService;
 
@@ -52,52 +84,100 @@ public class ApplicationController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         layoutGraph = new LayoutGraph();
-        swingNode = new SwingNode();
-        pane.getChildren().add(swingNode);
+        layoutGraph1 = new LayoutGraph();
+        swingNode1 = new SwingNode();
+        swingNode1.setOnMouseClicked(event -> click1());
+        pane1.getChildren().add(swingNode1);
+        active1.setSelected(true);
+        layoutGraph = layoutGraph1;
+
+        layoutGraph2 = new LayoutGraph();
+        swingNode2 = new SwingNode();
+        swingNode2.setOnMouseClicked(event -> click2());
+        pane2.getChildren().add(swingNode2);
+    }
+
+    @FXML
+    public void click1() {
+        layoutGraph = layoutGraph1;
+        active1.setSelected(true);
+    }
+
+    @FXML
+    public void click2() {
+        layoutGraph = layoutGraph2;
+        active2.setSelected(true);
     }
 
     @FXML
     public void addState() throws IOException {
-        newWindow("AddState");
+        newWindow("AddState", false);
     }
 
     @FXML
     public void addEvent() throws IOException {
-        newWindow("AddEvent");
+        newWindow("AddEvent", false);
     }
 
     @FXML
     public void removeState() throws IOException {
-        newWindow("RemoveState");
+        newWindow("RemoveState", false);
     }
 
     @FXML
     public void removeEvent() throws IOException {
-        newWindow("RemoveEvent");
+        newWindow("RemoveEvent", false);
     }
 
     @FXML
     public void table() throws IOException {
-        newWindow("TableView");
+        newWindow("TableView", false);
     }
 
     @FXML
     public void operations() throws IOException {
-        newWindow("Operations");
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("What type of automatons operations do you want to perform?");
+        alert.setContentText("Choose your option!");
+        ButtonType buttonTypeNormal = new ButtonType("Normal");
+        ButtonType buttonTypeComposition = new ButtonType("Composition");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeNormal, buttonTypeComposition, buttonTypeCancel);
+        alert.setOnCloseRequest(event -> alert.close());
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeNormal) {
+            newWindow("Operations", false);
+        } else if (result.get() == buttonTypeComposition) {
+            newWindow("CompositionOperations", true);
+        }
+    }
+
+    public void setLabels() {
+        if (active1.isSelected()) {
+            setXo(xo1);
+            setX(x1);
+            setXm(xm1);
+            setE(e1);
+        } else {
+            setXo(xo2);
+            setX(x2);
+            setXm(xm2);
+            setE(e2);
+        }
     }
 
     @FXML
     public void newProject() {
+
         layoutGraph.removeAllGraph();
-        setXo();
-        setX();
-        setXm();
-        setE();
+        setLabels();
         createAndSetSwingContent();
     }
 
     @FXML
     public void testCase() {
+
         layoutGraph.removeAllGraph();
         State state0 = new State("0");
         state0.setStart(true);
@@ -126,10 +206,7 @@ public class ApplicationController implements Initializable {
         layoutGraph.addEvent(new Event("b", state6, state2), state6, state2);
         layoutGraph.addEvent(new Event("a", state4, state3), state4, state3);
 
-        setXo();
-        setX();
-        setXm();
-        setE();
+        setLabels();
         createAndSetSwingContent();
     }
 
@@ -140,7 +217,7 @@ public class ApplicationController implements Initializable {
             fileChooser.setTitle("Import File");
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-            Stage stage = (Stage) pane.getScene().getWindow();
+            Stage stage = (Stage) border.getScene().getWindow();
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 layoutGraph.removeAllGraph();
@@ -194,7 +271,7 @@ public class ApplicationController implements Initializable {
             fileChooser.setTitle("Save File");
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-            Stage stage = (Stage) pane.getScene().getWindow();
+            Stage stage = (Stage) border.getScene().getWindow();
             File save = fileChooser.showSaveDialog(stage);
             if (save != null) {
                 FileWriter file = new FileWriter(save);
@@ -239,7 +316,10 @@ public class ApplicationController implements Initializable {
     }
 
     public void createAndSetSwingContent() {
-        swingNode.setContent(layoutGraph.changeBasicVisualizationServer());
+        if (active1.isSelected())
+            swingNode1.setContent(layoutGraph.changeBasicVisualizationServer());
+        else
+            swingNode2.setContent(layoutGraph.changeBasicVisualizationServer());
     }
 
     public void append(Label label, String text) {
@@ -254,12 +334,12 @@ public class ApplicationController implements Initializable {
         label.setText(label.getText().substring(0, label.getText().lastIndexOf(",")));
     }
 
-    public void setXo() {
+    public void setXo(Label xo) {
         clean(xo);
         append(xo, "Xo=" + layoutGraph.getStateStart().getName());
     }
 
-    public void setX() {
+    public void setX(Label x) {
         clean(x);
         append(x, "X={");
         if (!layoutGraph.getAllStates().isEmpty()) {
@@ -271,7 +351,7 @@ public class ApplicationController implements Initializable {
         append(x, "}");
     }
 
-    public void setE() {
+    public void setE(Label e) {
         clean(e);
         append(e, "E={");
         if (!layoutGraph.getAllEvents().isEmpty()) {
@@ -286,7 +366,7 @@ public class ApplicationController implements Initializable {
         append(e, "}");
     }
 
-    public void setXm() {
+    public void setXm(Label xm) {
         clean(xm);
         append(xm, "Xm={");
         if (!layoutGraph.getAllStatesMarked().isEmpty()) {
@@ -306,12 +386,15 @@ public class ApplicationController implements Initializable {
         alert.show();
     }
 
-    public void newWindow(String view) throws IOException {
+    public void newWindow(String view, boolean layout) throws IOException {
         createWindowService = new CreateWindowService(view);
         createWindowService.setStage(new Stage());
         createWindowService.setBtnMin(false);
         createWindowService.setScene();
-        createWindowService.setAbstractController(this, layoutGraph);
+        if (!layout)
+            createWindowService.setAbstractController(this, layoutGraph);
+        else
+            createWindowService.setAbstractController(this, layoutGraph1, layoutGraph2);
         createWindowService.show();
     }
 
@@ -329,9 +412,7 @@ public class ApplicationController implements Initializable {
         if (!containsState(state)) {
             layoutGraph.addState(state);
             createAndSetSwingContent();
-            setXo();
-            setX();
-            setXm();
+            setLabels();
             return true;
         }
         return false;
@@ -341,9 +422,7 @@ public class ApplicationController implements Initializable {
         if (state != null) {
             layoutGraph.removeState(state);
             createAndSetSwingContent();
-            setXo();
-            setX();
-            setXm();
+            setLabels();
             return true;
         }
         return false;
@@ -353,7 +432,7 @@ public class ApplicationController implements Initializable {
         if (state1 != null && state2 != null) {
             layoutGraph.addEvent(event, state1, state2);
             createAndSetSwingContent();
-            setE();
+            setLabels();
             return true;
         }
         return false;
@@ -363,7 +442,7 @@ public class ApplicationController implements Initializable {
         if (event != null) {
             layoutGraph.removeEvent(event);
             createAndSetSwingContent();
-            setE();
+            setLabels();
             return true;
         }
         return false;

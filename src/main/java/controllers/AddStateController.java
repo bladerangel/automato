@@ -61,13 +61,13 @@ public class AddStateController extends AbstractController implements Initializa
     @FXML
     public void save() throws IOException {
         State state = new State(name.getText());
+        if (marked.isSelected()) {
+            state.setMarked(true);
+        }
+        if (start.isSelected()) {
+            state.setStart(true);
+        }
         if (name.validate() && applicationController.addStateGraph(state)) {
-            if (marked.isSelected()) {
-                state.setMarked(true);
-            }
-            if (start.isSelected()) {
-                state.setStart(true);
-            }
             Stage stage = (Stage) pane.getScene().getWindow();
             stage.close();
         }

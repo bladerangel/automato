@@ -11,20 +11,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OperationsController">
+<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CompositionOperationsController">
    <center>
       <AnchorPane BorderPane.alignment="TOP_CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <Pane fx:id="pane1" layoutX="57.0" layoutY="25.0" prefHeight="400.0" prefWidth="400.0" AnchorPane.leftAnchor="57.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="25.0" />
+            <Pane fx:id="pane1" layoutX="66.0" layoutY="26.0" prefHeight="400.0" prefWidth="400.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="26.0" />
          </children></AnchorPane>
    </center>
    <right>
       <VBox fx:id="buttons" prefWidth="150.0" spacing="10.0" BorderPane.alignment="TOP_CENTER">
          <children>
-            <JFXButton buttonType="RAISED" onAction="#accessible" prefHeight="80.0" prefWidth="150.0" text="Accessible">
+            <JFXButton buttonType="RAISED" onAction="#product" prefHeight="80.0" prefWidth="150.0" text="Product">
                <graphic>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -39,35 +39,11 @@
                   <Insets bottom="15.0" top="15.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#coaccessible" prefWidth="150.0" text="Co-accessible">
+            <JFXButton buttonType="RAISED" onAction="#parallel" prefWidth="150.0" text="Parallel">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/coaccessible.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#trim" prefWidth="150.0" text="Trim">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/images/trim.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#complement" prefWidth="150.0" text="Complement">
-               <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/images/complement.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -101,7 +77,7 @@
    <top>
       <Pane fx:id="paneTitle" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="title" layoutX="321.0" layoutY="11.0" text="Operations" />
+            <Label fx:id="title" layoutX="265.0" layoutY="10.0" text="Composition Operations" />
          </children>
       </Pane>
    </top>

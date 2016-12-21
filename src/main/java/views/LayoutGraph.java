@@ -30,9 +30,9 @@ public class LayoutGraph {
 
     public BasicVisualizationServer<State, Event> changeBasicVisualizationServer() {
         layout = new CircleLayout<>(graph);
-        layout.setSize(new Dimension(500, 500));
+        layout.setSize(new Dimension(400, 400));
         basicVisualizationServer = new BasicVisualizationServer<>(layout);
-        basicVisualizationServer.setPreferredSize(new Dimension(500, 500));
+        basicVisualizationServer.setPreferredSize(new Dimension(400, 400));
         basicVisualizationServer.setBackground(Color.decode("#90A4AE"));
         basicVisualizationServer.getRenderer().setVertexRenderer(customizeLayoutState);
         basicVisualizationServer.getRenderContext().setVertexLabelTransformer(state -> state.getName());
@@ -119,7 +119,6 @@ public class LayoutGraph {
     }
 
     public Pair<State> getAllStatesByEvent(Event event) {
-        //return graph.getIncidentVertices(event);
         return graph.getEndpoints(event);
 
     }

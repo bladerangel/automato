@@ -3,7 +3,9 @@ package controllers;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import models.Event;
 import models.State;
 import views.LayoutGraph;
@@ -19,7 +21,7 @@ import java.util.ResourceBundle;
 public class OperationsController extends AbstractController implements Initializable {
 
     @FXML
-    private Pane pane;
+    private Pane pane1;
 
     private SwingNode swingNode;
 
@@ -50,7 +52,7 @@ public class OperationsController extends AbstractController implements Initiali
                 .forEach(state -> foundPredecessors(state));
         foundTrim();
         swingNode = new SwingNode();
-        pane.getChildren().add(swingNode);
+        pane1.getChildren().add(swingNode);
         createAndSetSwingContent();
     }
 

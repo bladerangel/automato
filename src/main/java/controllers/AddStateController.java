@@ -56,6 +56,7 @@ public class AddStateController extends AbstractController implements Initializa
         if (!layoutGraph.getStateStart().getName().equals("")) {
             start.setDisable(true);
         }
+        name.requestFocus();
     }
 
     @FXML

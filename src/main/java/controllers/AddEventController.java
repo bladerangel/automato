@@ -62,6 +62,7 @@ public class AddEventController extends AbstractController implements Initializa
         states1.setConverter(comboBoxService.newConverterState());
         states2.setCellFactory(param -> comboBoxService.newListState());
         states2.setConverter(comboBoxService.newConverterState());
+        name.requestFocus();
     }
 
     @FXML

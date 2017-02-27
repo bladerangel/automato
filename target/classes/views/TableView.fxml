@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TableController">
+   <children>
+      <VBox prefHeight="430.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane fx:id="paneTitle">
+               <children>
+                  <Label fx:id="title" layoutX="236.0" layoutY="6.0" text="Transition Function" />
+               </children>
+            </Pane>
+            <TableView fx:id="table" />
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../assets/stylesheets/dialog.css" />
+      <URL value="@../assets/stylesheets/table.css" />
+   </stylesheets>
+</AnchorPane>

@@ -1,6 +1,6 @@
 ﻿# Este projeto sobre Autômatos tem as seguintes implementações:
 
-##**1. Representação:**
+**1. Representação:**
 	- Estados
 	- Estado inicial
 	- Estados marcados
